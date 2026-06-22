@@ -17,38 +17,36 @@
             height: 80px;
             cursor: pointer;
             border: 2px solid transparent;
+            background-size: cover;
         }
         .thumb:hover {
             border-color: #000;
         }
-        .thumb.red { background: red; }
-        .thumb.green { background: green; }
-        .thumb.blue { background: blue; }
+        .thumb.red { background-image: url("ПУТЬ ИЛИ ССЫЛКА СВОЕЙ КАРТИНКИ"); }
+        .thumb.green { background-image: url("ПУТЬ ИЛИ ССЫЛКА СВОЕЙ КАРТИНКИ"); }
+        .thumb.blue { background-image: url("ПУТЬ ИЛИ ССЫЛКА СВОЕЙ КАРТИНКИ"); }
         .main-img {
             width: 260px;
             height: 200px;
             margin-top: 10px;
             border: 1px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
+            background-size: cover;
+            background-position: center;
         }
     </style>
 </head>
 <body>
     <div class="gallery">
-        <div class="thumb red" onclick="changeMain('red')"></div>
-        <div class="thumb green" onclick="changeMain('green')"></div>
-        <div class="thumb blue" onclick="changeMain('blue')"></div>
+        <div class="thumb red" onclick="changeMain(this)"></div>
+        <div class="thumb green" onclick="changeMain(this)"></div>
+        <div class="thumb blue" onclick="changeMain(this)"></div>
     </div>
-    <div class="main-img" id="mainDisplay">Красный</div>
+    <div class="main-img" id="mainDisplay"></div>
     <script>
-        function changeMain(color) {
+        function changeMain(thumb) {
             const main = document.getElementById('mainDisplay');
-            main.style.backgroundColor = color;
-            main.textContent = color.charAt(0).toUpperCase() + color.slice(1);
+            const bg = window.getComputedStyle(thumb).backgroundImage;
+            main.style.backgroundImage = bg;
         }
     </script>
 </body>
