@@ -5,137 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 18</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f3f4f6;
-        }
-
-        .calc-box {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            width: 260px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .num-input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* Размещение кнопок в сетку 2x2 с помощью CSS Grid по условию */
-        .grid-operators {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Две колонки одинаковой ширины */
-            gap: 10px; /* Отступы в сетке */
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            max-width: 200px;
         }
-
-        .op-btn {
-            padding: 12px;
+        .grid button {
+            padding: 10px;
             font-size: 18px;
-            font-weight: bold;
-            background-color: #f8f9fa;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.15s ease;
         }
-
-        .op-btn:hover {
-            background-color: #e2e6ea;
-            border-color: #dae0e5;
-        }
-
-        .op-btn:active {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        .result-label {
-            margin-top: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            color: #333333;
-            min-height: 24px;
+        input {
+            width: 80px;
+            padding: 4px;
+            margin: 4px;
         }
     </style>
 </head>
 <body>
-
-    <div class="calc-box">
-        <input type="number" class="num-input" id="val1" placeholder="Первое число">
-        <input type="number" class="num-input" id="val2" placeholder="Второе число">
-        
-        <!-- Сетка операций 2х2 -->
-        <div class="grid-operators">
-            <button class="op-btn" data-op="+">+</button>
-            <button class="op-btn" data-op="-">-</button>
-            <button class="op-btn" data-op="*">×</button>
-            <button class="op-btn" data-op="/">÷</button>
-        </div>
-
-        <p class="result-label" id="calcResult"></p>
+    <input id="num1" type="number" />
+    <input id="num2" type="number" />
+    <div class="grid">
+        <button onclick="calc('+')">+</button>
+        <button onclick="calc('-')">-</button>
+        <button onclick="calc('*')">×</button>
+        <button onclick="calc('/')">÷</button>
     </div>
-
+    <p id="calcResult"></p>
     <script>
-        const val1Input = document.getElementById('val1');
-        const val2Input = document.getElementById('val2');
-        const calcResult = document.getElementById('calcResult');
-        const buttons = document.querySelectorAll('.op-btn');
-
-        // Назначаем один общий обработчик для всех кнопок сетки
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                const raw1 = val1Input.value.trim();
-                const raw2 = val2Input.value.trim();
-                const operator = this.getAttribute('data-op');
-
-                // Проверка на обязательное заполнение обоих полей
-                if (raw1 === '' || raw2 === '') {
-                    calcResult.textContent = 'Введите оба числа!';
-                    calcResult.style.color = '#dc3545';
-                    return;
-                }
-
-                const n1 = Number(raw1);
-                const n2 = Number(raw2);
-                let currentResult = 0;
-
-                // Математическая логика в зависимости от нажатой кнопки
-                switch (operator) {
-                    case '+': currentResult = n1 + n2; break;
-                    case '-': currentResult = n1 - n2; break;
-                    case '*': currentResult = n1 * n2; break;
-                    case '/':
-                        // Проверка критического деления на ноль
-                        if (n2 === 0) {
-                            calcResult.textContent = 'Деление на 0 невозможно!';
-                            calcResult.style.color = '#dc3545';
-                            return;
-                        }
-                        currentResult = n1 / n2;
-                        break;
-                }
-
-                // Вывод корректного результата вычислений
-                calcResult.textContent = `Результат: ${currentResult}`;
-                calcResult.style.color = '#333333';
-            });
-        });
+        function calc(op) {
+            const a = parseFloat(document.getElementById('num1').value) || 0;
+            const b = parseFloat(document.getElementById('num2').value) || 0;
+            let res;
+            switch(op) {
+                case '+': res = a + b; break;
+                case '-': res = a - b; break;
+                case '*': res = a * b; break;
+                case '/': res = b !== 0 ? a / b : 'Ошибка'; break;
+            }
+            document.getElementById('calcResult').textContent = res;
+        }
     </script>
-
 </body>
 </html>

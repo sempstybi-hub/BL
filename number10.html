@@ -5,104 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 10</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f4f8;
-        }
-
-        .counter-container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        /* Крупный шрифт для числа по условию */
-        .counter-value {
+        #counter {
             font-size: 32px;
-            font-weight: bold;
-            color: #333333;
-            margin: 0;
+            margin: 10px 0;
         }
-
-        .buttons-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        /* Круглые кнопки разного цвета */
-        .btn-circle {
+        button {
+            border-radius: 50%;
             width: 50px;
             height: 50px;
+            font-size: 24px;
             border: none;
-            border-radius: 50%; /* Делает кнопку круглой */
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.2s, transform 0.1s;
         }
-
-        .btn-plus {
-            background-color: #28a745; /* Зеленый цвет для увеличения */
+        .plus {
+            background-color: green;
+            color: white;
         }
-
-        .btn-minus {
-            background-color: #dc3545; /* Красный цвет для уменьшения */
-        }
-
-        .btn-circle:hover {
-            opacity: 0.9;
-        }
-
-        .btn-circle:active {
-            transform: scale(0.95);
+        .minus {
+            background-color: red;
+            color: white;
         }
     </style>
 </head>
 <body>
-
-    <div class="counter-container">
-        <p class="counter-value" id="counterDisplay">0</p>
-        <div class="buttons-group">
-            <button class="btn-circle btn-minus" id="minusBtn">-1</button>
-            <button class="btn-circle btn-plus" id="plusBtn">+1</button>
-        </div>
-    </div>
-
+    <div id="counter">0</div>
+    <button class="plus" onclick="change(1)">+1</button>
+    <button class="minus" onclick="change(-1)">-1</button>
     <script>
-        const counterDisplay = document.getElementById('counterDisplay');
-        const minusBtn = document.getElementById('minusBtn');
-        const plusBtn = document.getElementById('plusBtn');
-
-        // Инициализируем внутреннее состояние счетчика числом
-        let counterValue = 0;
-
-        // Обработчик для кнопки увеличения
-        plusBtn.addEventListener('click', function() {
-            counterValue++;
-            counterDisplay.textContent = counterValue;
-        });
-
-        // Обработчик для кнопки уменьшения
-        minusBtn.addEventListener('click', function() {
-            counterValue--;
-            counterDisplay.textContent = counterValue;
-        });
+        let count = 0;
+        function change(delta) {
+            count += delta;
+            document.getElementById('counter').textContent = count;
+        }
     </script>
-
 </body>
 </html>

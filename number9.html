@@ -5,106 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 9</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f8f9fa;
+        select {
+            border: 1px solid #000;
+            padding: 4px;
         }
-
-        .widget-form {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 280px;
-        }
-
-        /* Выпадающий список с рамкой */
-        .day-select {
+        button {
             width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ced4da; /* Четкая рамка */
-            border-radius: 4px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        .day-select:focus {
-            border-color: #007bff;
-        }
-
-        /* Кнопка на всю ширину */
-        .submit-btn {
-            width: 100%; /* Кнопка на всю ширину контейнера */
-            padding: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
+            padding: 6px;
+            margin-top: 6px;
             cursor: pointer;
-            box-sizing: border-box;
-        }
-
-        .submit-btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* Абзац для вывода текста */
-        .result-display {
-            margin-top: 15px;
-            font-size: 16px;
-            text-align: center;
-            color: #212529;
-            min-height: 20px;
         }
     </style>
 </head>
 <body>
-
-    <div class="widget-form">
-        <select class="day-select" id="weekDaySelect">
-            <option value="" disabled selected>Выберите день недели</option>
-            <option value="понедельник">Понедельник</option>
-            <option value="вторник">Вторник</option>
-            <option value="среду">Среда</option>
-            <option value="четверг">Четверг</option>
-            <option value="пятницу">Пятница</option>
-            <option value="субботу">Суббота</option>
-            <option value="воскресенье">Воскресенье</option>
-        </select>
-        
-        <button class="submit-btn" id="showDayBtn">Показать выбор</button>
-        
-        <p class="result-display" id="resultText"></p>
-    </div>
-
+    <select id="daySelect">
+        <option>Понедельник</option>
+        <option>Вторник</option>
+        <option>Среда</option>
+        <option>Четверг</option>
+        <option>Пятница</option>
+        <option>Суббота</option>
+        <option>Воскресенье</option>
+    </select>
+    <button onclick="showDay()">Выбрать</button>
+    <p id="dayResult"></p>
     <script>
-        const daySelect = document.getElementById('weekDaySelect');
-        const showDayBtn = document.getElementById('showDayBtn');
-        const resultText = document.getElementById('resultText');
-
-        showDayBtn.addEventListener('click', function() {
-            const selectedValue = daySelect.value;
-
-            if (!selectedValue) {
-                resultText.textContent = 'Пожалуйста, сделайте выбор!';
-                resultText.style.color = '#dc3545';
-                return;
-            }
-
-            // Формируем динамическое сообщение
-            resultText.textContent = `Выбран ${selectedValue}`;
-            resultText.style.color = '#28a745';
-        });
+        function showDay() {
+            const sel = document.getElementById('daySelect');
+            document.getElementById('dayResult').textContent = 'Выбран ' + sel.value;
+        }
     </script>
-
 </body>
 </html>

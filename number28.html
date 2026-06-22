@@ -5,109 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 28</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f8f9fa;
-        }
-
-        /* Контейнер галереи сеткой Grid по условию */
-        .gallery-container {
+        .gallery {
             display: grid;
-            grid-template-columns: 1fr; /* Одна колонка */
-            gap: 15px;
-            width: 400px;
-            background-color: #ffffff;
-            padding: 20px;
-            border: 2px solid #dee2e6; /* Рамка вокруг галереи */
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        /* Главное большое окно просмотра */
-        .main-view {
-            width: 100%;
-            height: 250px;
-            background-color: #007bff; /* Исходный синий цвет */
-            border: 1px solid #ced4da;  /* Рамка */
-            border-radius: 4px;
-            transition: background-color 0.3s ease; /* Плавная смена контента */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: white;
-            font-size: 20px;
-        }
-
-        /* Сетка превью-картинок (3 колонки в ряд) */
-        .thumbnails-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 маленьких превью в ряд */
+            grid-template-columns: repeat(3, 80px);
             gap: 10px;
+            border: 1px solid #000;
+            padding: 10px;
         }
-
-        /* Стили для маленьких превью по условию */
         .thumb {
-            height: 70px;
-            border: 2px solid transparent; /* Рамка подготавливается */
-            border-radius: 4px;
+            width: 80px;
+            height: 80px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            border: 2px solid transparent;
         }
-
-        /* Цвета для идентификации превью */
-        .thumb-blue { background-color: #007bff; }
-        .thumb-green { background-color: #28a745; }
-        .thumb-red { background-color: #dc3545; }
-
-        /* Выделение активного превью четкой рамкой */
-        .thumb.active {
-            border-color: #333333; /* Активная рамка */
-            transform: scale(0.95);
+        .thumb:hover {
+            border-color: #000;
+        }
+        .thumb.red { background: red; }
+        .thumb.green { background: green; }
+        .thumb.blue { background: blue; }
+        .main-img {
+            width: 260px;
+            height: 200px;
+            margin-top: 10px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
         }
     </style>
 </head>
 <body>
-
-    <div class="gallery-container">
-        <!-- Большое главное изображение -->
-        <div class="main-view" id="mainDisplay">Изображение 1</div>
-        
-        <!-- Сетка превью -->
-        <div class="thumbnails-grid">
-            <div class="thumb thumb-blue active" data-color="#007bff" data-name="Изображение 1"></div>
-            <div class="thumb thumb-green" data-color="#28a745" data-name="Изображение 2"></div>
-            <div class="thumb thumb-red" data-color="#dc3545" data-name="Изображение 3"></div>
-        </div>
+    <div class="gallery">
+        <div class="thumb red" onclick="changeMain('red')"></div>
+        <div class="thumb green" onclick="changeMain('green')"></div>
+        <div class="thumb blue" onclick="changeMain('blue')"></div>
     </div>
-
+    <div class="main-img" id="mainDisplay">Красный</div>
     <script>
-        const mainDisplay = document.getElementById('mainDisplay');
-        const thumbnails = document.querySelectorAll('.thumb');
-
-        thumbnails.forEach(thumb => {
-            thumb.addEventListener('click', function() {
-                // 1. Убираем класс active со всех превью
-                thumbnails.forEach(t => t.classList.remove('active'));
-                
-                // 2. Добавляем класс active текущему выбранному превью
-                this.classList.add('active');
-
-                // 3. Считываем данные из атрибутов кликнутого элемента
-                const selectedColor = this.getAttribute('data-color');
-                const selectedName = this.getAttribute('data-name');
-
-                // 4. Меняем контент в большом блоке по условию задачи
-                mainDisplay.style.backgroundColor = selectedColor;
-                mainDisplay.textContent = selectedName;
-            });
-        });
+        function changeMain(color) {
+            const main = document.getElementById('mainDisplay');
+            main.style.backgroundColor = color;
+            main.textContent = color.charAt(0).toUpperCase() + color.slice(1);
+        }
     </script>
-
 </body>
 </html>

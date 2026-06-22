@@ -5,94 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 5</title>
     <style>
-        /* Центрирование контента и светло-серый фон страницы */
         body {
-            background-color: #f4f4f6;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Центрирование по горизонтали */
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
+            background-color: lightgray;
             text-align: center;
+            padding-top: 40px;
         }
-
-        /* Стили для формы ввода */
-        .num-input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            margin-right: 10px;
-            width: 150px;
-        }
-
-        /* Стили для кнопки */
-        .check-btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .check-btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* Стиль вывода результата */
-        .result-text {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333333;
-            min-height: 24px; /* Резервирует место под текст */
+        input, button {
+            margin: 6px;
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <!-- Атрибут type="number" разрешает ввод только числовых значений -->
-        <input type="number" class="num-input" id="numberInput" placeholder="Введите число">
-        <button class="check-btn" id="checkBtn">Проверить</button>
-        <p class="result-text" id="resultMessage"></p>
-    </div>
-
+    <input id="numInput" />
+    <button onclick="checkEven()">Проверить</button>
+    <p id="result"></p>
     <script>
-        const numberInput = document.getElementById('numberInput');
-        const checkBtn = document.getElementById('checkBtn');
-        const resultMessage = document.getElementById('resultMessage');
-
-        checkBtn.addEventListener('click', function() {
-            const inputValue = numberInput.value.trim();
-
-            // Проверка на пустую строку
-            if (inputValue === '') {
-                resultMessage.textContent = 'Пожалуйста, введите число';
-                resultMessage.style.color = 'red';
+        function checkEven() {
+            const val = parseInt(document.getElementById('numInput').value);
+            const res = document.getElementById('result');
+            if (isNaN(val)) {
+                res.textContent = 'Введите число';
                 return;
             }
-
-            // Переводим строковое значение в число
-            const number = Number(inputValue);
-
-            // Проверяем остаток от деления на 2
-            if (number % 2 === 0) {
-                resultMessage.textContent = 'Четное';
-                resultMessage.style.color = 'green';
-            } else {
-                resultMessage.textContent = 'Нечетное';
-                resultMessage.style.color = 'blue';
-            }
-        });
+            res.textContent = val % 2 === 0 ? 'Четное' : 'Нечетное';
+        }
     </script>
-
 </body>
 </html>

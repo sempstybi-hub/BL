@@ -5,81 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 8</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-        }
-
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
-
-        /* Область с чекбоксом */
-        .checkbox-group {
-            margin-bottom: 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .checkbox-group input {
-            cursor: pointer;
-            margin-right: 8px;
-        }
-
-        /* Стили для кнопки */
-        .btn-purple {
-            background-color: #6f42c1; /* Фиолетовый фон */
-            color: #ffffff;            /* Белый текст */
+        button {
+            background-color: purple;
+            color: white;
             border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 6px;
+            padding: 8px 16px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             cursor: pointer;
-            transition: box-shadow 0.3s ease, background-color 0.2s; /* Плавность для тени */
         }
-
-        /* Эффект при наведении курсора */
-        .btn-purple:hover {
-            background-color: #5a32a3;
-            box-shadow: 0 8px 16px rgba(111, 66, 193, 0.4); /* Тень при наведении */
+        button:hover {
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <label class="checkbox-group">
-            <input type="checkbox" id="statusCheckbox"> Согласен с условиями
-        </label>
-        <br>
-        <button class="btn-purple" id="checkStatusBtn">Проверить</button>
-    </div>
-
+    <input type="checkbox" id="chk" />
+    <button onclick="checkBox()">Проверить</button>
     <script>
-        // Находим элементы по их уникальным id
-        const statusCheckbox = document.getElementById('statusCheckbox');
-        const checkStatusBtn = document.getElementById('checkStatusBtn');
-
-        // Вешаем обработчик события клика на кнопку
-        checkStatusBtn.addEventListener('click', function() {
-            // Свойство .checked возвращает true, если галочка стоит, и false, если нет
-            if (statusCheckbox.checked) {
-                alert('Чекбокс выбран');
-            } else {
-                alert('Чекбокс не выбран');
-            }
-        });
+        function checkBox() {
+            const checked = document.getElementById('chk').checked;
+            alert(checked ? 'Выбран' : 'Не выбран');
+        }
     </script>
-
 </body>
 </html>

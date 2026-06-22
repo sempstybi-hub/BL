@@ -5,75 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 16</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f7;
-        }
-
-        .textarea-container {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            /* Тень вокруг контейнера по условию задачи */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-
-        /* Ограничение ширины текстовой области по условию задачи */
-        .limited-textarea {
-            width: 100%;
-            max-width: 400px; /* Строгое ограничение максимальной ширины */
-            min-width: 250px;
-            height: 120px;
-            padding: 12px;
-            font-size: 16px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            outline: none;
-            font-family: inherit;
-        }
-
-        .limited-textarea:focus {
-            border-color: #007bff;
-        }
-
-        /* Стиль для текста счетчика */
-        .counter-label {
-            margin-top: 12px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #555555;
+        textarea {
+            width: 300px;
+            max-width: 100%;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            padding: 6px;
         }
     </style>
 </head>
 <body>
-
-    <div class="textarea-container">
-        <!-- Текстовая область -->
-        <textarea class="limited-textarea" id="textInput" placeholder="Начните вводить текст..."></textarea>
-        <!-- Счетчик символов -->
-        <p class="counter-label" id="charCounter">Символов: 0</p>
-    </div>
-
+    <textarea id="ta" oninput="countChars()"></textarea>
+    <p id="charCount">Символов: 0</p>
     <script>
-        const textInput = document.getElementById('textInput');
-        const charCounter = document.getElementById('charCounter');
-
-        // Отслеживаем событие 'input', которое срабатывает на каждое изменение текста
-        textInput.addEventListener('input', function() {
-            // Получаем длину строки (количество символов)
-            const currentLength = textInput.value.length;
-
-            // Обновляем текст счетчика на экране
-            charCounter.textContent = `Символов: ${currentLength}`;
-        });
+        function countChars() {
+            const len = document.getElementById('ta').value.length;
+            document.getElementById('charCount').textContent = `Символов: ${len}`;
+        }
     </script>
-
 </body>
 </html>

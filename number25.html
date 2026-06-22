@@ -5,133 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 25</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f6f8;
-        }
-
-        .search-box {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            width: 300px;
-        }
-
-        .search-form {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            flex-grow: 1;
-            padding: 10px;
-            font-size: 15px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: #007bff;
-        }
-
-        .search-btn {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .items-list {
+        ul {
             list-style: none;
             padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
         }
-
-        .list-item {
-            padding: 10px;
-            background-color: #e9ecef;
+        li {
+            padding: 6px 12px;
+            margin: 4px 0;
+            background: #f5f5f5;
             border-radius: 4px;
-            font-size: 15px;
-            color: #333333;
-            transition: background-color 0.2s;
         }
-
-        /* CSS-подсветка найденного текста по условию задачи */
-        mark {
-            background-color: #ffeb3b; /* Ярко-желтый фон */
-            color: #000000;
-            padding: 0 2px;
-            border-radius: 2px;
+        .highlight {
+            background-color: yellow;
         }
     </style>
 </head>
 <body>
-
-    <div class="search-box">
-        <div class="search-form">
-            <input type="text" class="search-input" id="searchInput" placeholder="Введите текст...">
-            <button class="search-btn">Поиск</button>
-        </div>
-        
-        <!-- Предопределенный список из 5 элементов по условию -->
-        <ul class="items-list" id="itemsList">
-            <li class="list-item" data-raw="Яблоко спелое">Яблоко спелое</li>
-            <li class="list-item" data-raw="Банан желтый">Банан желтый</li>
-            <li class="list-item" data-raw="Апельсин сочный">Апельсин сочный</li>
-            <li class="list-item" data-raw="Груша сладкая">Груша сладкая</li>
-            <li class="list-item" data-raw="Киви зеленый">Киви зеленый</li>
-        </ul>
-    </div>
-
+    <input id="searchInput" oninput="searchList()" placeholder="Поиск..." />
+    <ul id="itemList">
+        <li>Яблоко</li>
+        <li>Банан</li>
+        <li>Апельсин</li>
+        <li>Груша</li>
+        <li>Киви</li>
+    </ul>
     <script>
-        const searchInput = document.getElementById('searchInput');
-        const itemsList = document.getElementById('itemsList');
-        // Получаем массив всех элементов li
-        const listItems = itemsList.getElementsByClassName('list-item');
-
-        searchInput.addEventListener('input', function() {
-            // Переводим поисковый запрос в нижний регистр для регистронезависимого поиска
-            const query = searchInput.value.toLowerCase().trim();
-
-            for (let i = 0; i < listItems.length; i++) {
-                const item = listItems[i];
-                // Берем чистый исходный текст из data-атрибута
-                const originalText = item.getAttribute('data-raw');
-                const lowerText = originalText.toLowerCase();
-
-                if (lowerText.includes(query)) {
-                    // Если совпадение есть, показываем элемент
-                    item.style.display = 'block';
-
-                    if (query !== '') {
-                        // Динамически создаем регулярное выражение для замены текста на тег <mark>
-                        const regex = new RegExp(`(${query})`, 'gi');
-                        item.innerHTML = originalText.replace(regex, '<mark>$1</mark>');
-                    } else {
-                        // Если строка поиска пуста, возвращаем исходный текст без тегов
-                        item.innerHTML = originalText;
-                    }
+        function searchList() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('#itemList li');
+            items.forEach(li => {
+                const text = li.textContent.toLowerCase();
+                if (text.includes(q)) {
+                    li.style.display = '';
                 } else {
-                    // Если совпадений нет, скрываем элемент из списка по условию
-                    item.style.display = 'none';
+                    li.style.display = 'none';
                 }
-            }
-        });
+            });
+        }
     </script>
-
 </body>
 </html>

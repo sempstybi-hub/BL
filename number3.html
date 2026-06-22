@@ -5,55 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 3</title>
     <style>
-        /* Стили для поля ввода */
-        .input-field {
-            background-color: #f0f0f0; /* Серый фон */
-            border: 1px solid #ccc;     /* Рамка 1px */
-            padding: 8px 12px;
-            font-size: 14px;
-            border-radius: 4px;
-            outline: none;
+        input {
+            background-color: gray;
+            border: 1px solid black;
         }
-
-        /* Фокус на поле ввода для улучшения UX */
-        .input-field:focus {
-            border-color: #ff9800;
-        }
-
-        /* Стили для кнопки */
-        .btn-orange {
-            background-color: #ff9800; /* Оранжевый фон */
-            color: white;
+        button {
+            background-color: orange;
             border: none;
-            padding: 9px 20px;
-            border-radius: 4px;
+            padding: 4px 12px;
             cursor: pointer;
-            font-size: 14px;
-            margin-left: 8px;
-        }
-
-        .btn-orange:hover {
-            background-color: #e68a00;
         }
     </style>
 </head>
 <body>
-
-    <input type="text" class="input-field" id="userInput" placeholder="Введите текст...">
-    <button class="btn-orange" id="alertBtn">Показать</button>
-
+    <input id="inp" />
+    <button onclick="showAlert()">Вывод</button>
     <script>
-        const inputField = document.getElementById('userInput');
-        const alertButton = document.getElementById('alertBtn');
-
-        alertButton.addEventListener('click', function() {
-            // Получаем значение из инпута
-            const textValue = inputField.value;
-            
-            // Вызываем всплывающее окно alert
-            alert(textValue);
-        });
+        function showAlert() {
+            alert(document.getElementById('inp').value);
+        }
     </script>
-
 </body>
 </html>

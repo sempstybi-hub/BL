@@ -5,41 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 22</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f8f9fa;
-        }
-
-        /* Базовое состояние анимируемого квадрата */
-        .animated-box {
-            width: 100px; /* Фиксированные размеры 100х100px по условию */
+        .square {
+            width: 100px;
             height: 100px;
-            background-color: #007bff; /* Исходный синий цвет */
-            border-radius: 12px;       /* Скругленные углы по условию */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Тень по условию */
-            
-            /* Настройка плавного перехода при наведении и возврате обратно */
-            transition: background-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            background-color: blue;
+            border-radius: 12px;
+            box-shadow: 4px 4px 12px rgba(0,0,0,0.3);
+            transition: background-color 0.5s;
         }
-
-        /* Состояние квадрата при наведении мыши (hover) */
-        .animated-box:hover {
-            background-color: #ffc107; /* Меняет цвет на янтарно-желтый */
-            transform: scale(1.05);    /* Слегка увеличивается для лучшего UX */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Тень становится глубже */
+        .square:hover {
+            background-color: red;
         }
     </style>
 </head>
 <body>
-
-    <!-- Интерактивный квадрат -->
-    <div class="animated-box"></div>
-
+    <div class="square"></div>
 </body>
 </html>

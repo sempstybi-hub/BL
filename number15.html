@@ -5,82 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 15</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #fcfcfc;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Контейнер растягивается на всю ширину страницы */
-        .range-container {
+        input[type="range"] {
             width: 100%;
-            max-width: 100%; /* Ползунок на всю ширину страницы */
-            box-sizing: border-box;
-            text-align: center;
-            padding: 10px;
-        }
-
-        /* Стили для ползунка на всю ширину */
-        .wide-range {
-            width: 100%; /* Ползунок занимает 100% ширины экрана */
-            margin: 20px 0;
-            cursor: pointer;
-        }
-
-        /* Стили для кнопки */
-        .submit-btn {
-            background-color: #17a2b8;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .submit-btn:hover {
-            background-color: #138496;
-        }
-
-        /* Абзац для вывода процентов */
-        .result-text {
-            margin-top: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333333;
-            min-height: 24px;
         }
     </style>
 </head>
 <body>
-
-    <div class="range-container">
-        <!-- Ползунок от 0 до 100 -->
-        <input type="range" min="0" max="100" value="50" class="wide-range" id="percentRange">
-        <br>
-        <button class="submit-btn" id="showValueBtn">Показать значение</button>
-        <p class="result-text" id="resultDisplay"></p>
-    </div>
-
+    <input type="range" id="slider" min="0" max="100" value="50" />
+    <button onclick="showPercent()">Показать</button>
+    <p id="percentResult"></p>
     <script>
-        const percentRange = document.getElementById('percentRange');
-        const showValueBtn = document.getElementById('showValueBtn');
-        const resultDisplay = document.getElementById('resultDisplay');
-
-        showValueBtn.addEventListener('click', function() {
-            // Получаем текущее числовое значение ползунка
-            const rangeValue = percentRange.value;
-
-            // Выводим текст в формате "Выбрано Х%"
-            resultDisplay.textContent = `Выбрано ${rangeValue}%`;
-        });
+        function showPercent() {
+            const val = document.getElementById('slider').value;
+            document.getElementById('percentResult').textContent = `Выбрано ${val}%`;
+        }
     </script>
-
 </body>
 </html>

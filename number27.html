@@ -5,118 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 27</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f1f3f5;
-            gap: 40px;
-        }
-
-        /* Общие стили для блоков одинакового размера с тенями */
-        .box {
+        .drop-zone {
             width: 150px;
             height: 150px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Тень */
+            background: #4CAF50;
+            color: white;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-weight: bold;
-            font-size: 14px;
-            color: #ffffff;
-            transition: all 0.2s ease;
+            justify-content: center;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            margin: 10px;
         }
-
-        /* Первый блок — перетаскиваемый (красный) */
-        #draggableBlock {
-            background-color: #dc3545;
+        .drag-item {
+            width: 150px;
+            height: 150px;
+            background: #2196F3;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            margin: 10px;
             cursor: grab;
-            user-select: none;
-        }
-
-        #draggableBlock:active {
-            cursor: grabbing;
-        }
-
-        /* Второй блок — зона сброса (серый/синий) */
-        #dropzoneBlock {
-            background-color: #6c757d;
-            border: 2px dashed #495057;
-            color: #ffffff;
-        }
-
-        /* Стилизация зоны сброса при наведении над ней элемента */
-        #dropzoneBlock.drag-over {
-            background-color: #007bff; /* Меняет цвет на синий */
-            border-color: #0056b3;
-            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-
-    <!-- Перетаскиваемый блок. Атрибут draggable="true" обязателен -->
-    <div class="box" id="draggableBlock" draggable="true">Перетащи меня</div>
-
-    <!-- Блок-цель (Зона сброса) -->
-    <div class="box" id="dropzoneBlock">Зона сброса</div>
-
+    <div class="drag-item" draggable="true" ondragstart="drag(event)">Перетащи меня</div>
+    <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">Сюда</div>
     <script>
-        const draggableBlock = document.getElementById('draggableBlock');
-        const dropzoneBlock = document.getElementById('dropzoneBlock');
-
-        // Событие DRAGSTART: срабатывает в момент начала перетаскивания
-        draggableBlock.addEventListener('dragstart', function(event) {
-            // Запоминаем ID перетаскиваемого элемента в объекте dataTransfer
-            event.dataTransfer.setData('text/plain', event.target.id);
-            // Визуальный эффект полупрозрачности при переносе
-            setTimeout(() => this.style.opacity = '0.5', 0);
-        });
-
-        // Возвращаем прозрачность обратно, когда перетаскивание завершено
-        draggableBlock.addEventListener('dragend', function() {
-            this.style.opacity = '1';
-        });
-
-        // По умолчанию браузер запрещает сбрасывать элементы в другие блоки. 
-        // Отменяем это поведение через preventDefault в событии dragover
-        dropzoneBlock.addEventListener('dragover', function(event) {
-            event.preventDefault(); 
-        });
-
-        // Добавляем класс подсветки, когда элемент заносится над зоной сброса
-        dropzoneBlock.addEventListener('dragenter', function() {
-            this.classList.add('drag-over');
-        });
-
-        // Убираем подсветку, если элемент унесли обратно
-        dropzoneBlock.addEventListener('dragleave', function() {
-            this.classList.remove('drag-over');
-        });
-
-        // Событие DROP: срабатывает в момент отпускания мыши над зоной сброса
-        dropzoneBlock.addEventListener('drop', function(event) {
-            event.preventDefault(); // Блокируем стандартное поведение браузера
-            this.classList.remove('drag-over'); // Убираем подсветку
-
-            // Извлекаем сохраненный ID перемещенного блока
-            const draggedId = event.dataTransfer.getData('text/plain');
-            const draggedElement = document.getElementById(draggedId);
-
-            // Очищаем текст зоны сброса и физически помещаем блок внутрь нее
-            this.innerHTML = '';
-            this.appendChild(draggedElement);
-
-            // Корректируем стили перемещенного элемента внутри новой корзины
-            draggedElement.style.width = '100%';
-            draggedElement.style.height = '100%';
-            draggedElement.style.boxShadow = 'none';
-        });
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+        function drag(e) {
+            e.dataTransfer.setData('text', e.target.textContent);
+        }
+        function drop(e) {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text');
+            e.target.textContent = data + ' (перенесено)';
+        }
     </script>
-
 </body>
 </html>

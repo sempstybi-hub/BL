@@ -5,154 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Задание 19</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f6f9;
-        }
-
-        .todo-card {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            width: 320px;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .todo-input {
-            flex-grow: 1;
-            padding: 10px;
-            font-size: 15px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            outline: none;
-        }
-
-        .add-btn {
-            padding: 10px 15px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .add-btn:hover {
-            background-color: #218838;
-        }
-
-        /* Список задач */
-        .todo-list {
+        ul {
             list-style: none;
             padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
         }
-
-        /* Стили для каждого пункта по условию задачи */
-        .todo-item {
-            background-color: #e9ecef; /* Фон */
-            padding: 12px;             /* Отступы */
-            border-radius: 6px;        /* Закругления */
+        li {
+            background-color: #f0f0f0;
+            padding: 8px 12px;
+            margin: 4px 0;
+            border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 15px;
-            color: #333333;
-            word-break: break-word;    /* Чтобы длинные слова не вылезали за границы */
+            max-width: 300px;
         }
-
-        /* Стили для крестика удаления */
-        .delete-cross {
-            color: #dc3545;
-            font-weight: bold;
+        .del {
             cursor: pointer;
+            font-weight: bold;
+            color: red;
             font-size: 18px;
-            padding: 0 5px;
-            margin-left: 10px;
-            user-select: none;
         }
-
-        .delete-cross:hover {
-            color: #bd2130;
+        input, button {
+            padding: 6px 12px;
+            margin: 4px;
         }
     </style>
 </head>
 <body>
-
-    <div class="todo-card">
-        <h3>Мой список дел</h3>
-        <div class="input-group">
-            <input type="text" class="todo-input" id="todoInput" placeholder="Что нужно сделать?">
-            <button class="add-btn" id="addBtn">Добавить</button>
-        </div>
-        
-        <ul class="todo-list" id="todoList">
-            <!-- Сюда JavaScript будет добавлять новые задачи -->
-        </ul>
-    </div>
-
+    <input id="todoInput" placeholder="Дело" />
+    <button onclick="addTodo()">Добавить</button>
+    <ul id="todoList"></ul>
     <script>
-        const todoInput = document.getElementById('todoInput');
-        const addBtn = document.getElementById('addBtn');
-        const todoList = document.getElementById('todoList');
-
-        // Функция создания новой задачи
-        function addTask() {
-            const taskText = todoInput.value.trim();
-
-            // Запрет на добавление пустого дела
-            if (taskText === '') {
-                alert('Введите текст задачи!');
-                return;
-            }
-
-            // Создаем новый элемент li
+        function addTodo() {
+            const inp = document.getElementById('todoInput');
+            const text = inp.value.trim();
+            if (!text) return;
             const li = document.createElement('li');
-            li.className = 'todo-item';
-            
-            // Заполняем li контентом и крестиком
-            li.innerHTML = `
-                <span>${taskText}</span>
-                <span class="delete-cross">×</span>
-            `;
-
-            // Находим крестик внутри созданного li и вешаем на него событие удаления
-            li.querySelector('.delete-cross').addEventListener('click', function() {
-                li.remove(); // Удаляем весь элемент li
-            });
-
-            // Добавляем li в список ul
-            todoList.appendChild(li);
-
-            // Очищаем поле ввода и возвращаем на него фокус
-            todoInput.value = '';
-            todoInput.focus();
+            li.innerHTML = `${text} <span class="del" onclick="this.parentElement.remove()">×</span>`;
+            document.getElementById('todoList').appendChild(li);
+            inp.value = '';
         }
-
-        // Клик по кнопке "Добавить"
-        addBtn.addEventListener('click', addTask);
-
-        // Нажатие клавиши Enter внутри инпута
-        todoInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                addTask();
-            }
-        });
     </script>
-
 </body>
 </html>
