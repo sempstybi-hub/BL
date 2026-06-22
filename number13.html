@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 13</title>
+    <style>
+        /* Красивый градиентный фон страницы */
+        body {
+            background: linear-gradient(135deg, #74ebe1 0%, #8ca6db 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .welcome-card {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            width: 300px;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .name-input:focus {
+            border-color: #8ca6db;
+        }
+
+        .greet-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #4a69bd;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .greet-btn:hover {
+            background-color: #1e3d59;
+        }
+
+        .output-text {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-card">
+        <input type="text" class="name-input" id="usernameField" placeholder="Введите ваше имя">
+        <button class="greet-btn" id="greetBtn">Приветствие</button>
+        <p class="output-text" id="greetingMessage"></p>
+    </div>
+
+    <script>
+        const usernameField = document.getElementById('usernameField');
+        const greetBtn = document.getElementById('greetBtn');
+        const greetingMessage = document.getElementById('greetingMessage');
+
+        greetBtn.addEventListener('click', function() {
+            // Очищаем введенное имя от случайных начальных и конечных пробелов
+            const trimmedName = usernameField.value.trim();
+
+            // Проверяем, пустое ли поле после очистки пробелов
+            if (trimmedName === '') {
+                greetingMessage.textContent = 'Привет, Гость!';
+            } else {
+                greetingMessage.textContent = `Привет, ${trimmedName}!`;
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 24</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .tabs-container {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            width: 400px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Контейнер для кнопок-вкладок */
+        .tabs-menu {
+            display: flex;
+            background-color: #e9ecef;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        /* Базовый стиль вкладок */
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #495057;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        /* Активная вкладка — другого цвета по условию */
+        .tab-btn.active {
+            background-color: #ffffff;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+        }
+
+        /* Контейнер для текстовых блоков */
+        .tabs-content {
+            padding: 20px;
+            min-height: 100px;
+        }
+
+        /* Контент скрыт по умолчанию */
+        .tab-panel {
+            display: none;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333333;
+        }
+
+        /* Показывается только активный блок по условию */
+        .tab-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tabs-container">
+        <!-- Кнопки переключения -->
+        <div class="tabs-menu">
+            <button class="tab-btn active" data-target="tab1">Вкладка 1</button>
+            <button class="tab-btn" data-target="tab2">Вкладка 2</button>
+        </div>
+        
+        <!-- Текстовые блоки -->
+        <div class="tabs-content">
+            <div class="tab-panel active" id="tab1">
+                <h3>Контент первой вкладки</h3>
+                <p>Это текст, который относится исключительно к Вкладке 1. Здесь может быть расположена любая важная информация.</p>
+            </div>
+            <div class="tab-panel" id="tab2">
+                <h3>Контент второй вкладки</h3>
+                <p>А это совершенно другой текстовый блок, привязанный ко Вкладке 2. При переключении первый блок скрывается.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 1. Удаляем класс active у всех кнопок
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // 2. Удаляем класс active у всех текстовых панелей
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+
+                // 3. Добавляем класс active текущей нажатой кнопке
+                this.classList.add('active');
+
+                // 4. Находим целевую панель по ID из атрибута data-target и активируем её
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+</html>

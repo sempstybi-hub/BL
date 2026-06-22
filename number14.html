@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 14</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fafafa;
+        }
+
+        /* Кнопка с красным фоном и белым текстом */
+        .time-btn {
+            background-color: #e63946;
+            color: #ffffff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Настройка плавности для анимации */
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        /* Анимация при наведении курсора */
+        .time-btn:hover {
+            background-color: #d62828;
+            transform: translateY(-3px); /* Кнопка слегка приподнимается */
+            box-shadow: 0 6px 12px rgba(230, 57, 70, 0.3);
+        }
+
+        /* Анимация при физическом клике */
+        .time-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Абзац для вывода времени */
+        .time-display {
+            margin-top: 25px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1d3557;
+            letter-spacing: 1px;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="time-btn" id="showTimeBtn">Показать время</button>
+    <p class="time-display" id="timeOutput"></p>
+
+    <script>
+        const showTimeBtn = document.getElementById('showTimeBtn');
+        const timeOutput = document.getElementById('timeOutput');
+
+        // Функция форматирования числа (добавляет ведущий ноль, если число меньше 10)
+        function formatZero(num) {
+            return num < 10 ? '0' + num : num;
+        }
+
+        showTimeBtn.addEventListener('click', function() {
+            const now = new Date();
+
+            const hours = formatZero(now.getHours());
+            const minutes = formatZero(now.getMinutes());
+            const seconds = formatZero(now.getSeconds());
+
+            // Выводим отформатированную строку времени
+            timeOutput.textContent = `${hours}:${minutes}:${seconds}`;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 30</title>
+    <style>
+        /* Красивый градиентный фон страницы по условию */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Карточка с тенями по условию задачи */
+        .profile-card {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Глубокая тень */
+            width: 320px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        /* Фото-плейсхолдер по условию */
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #e9ecef;
+            border: 3px solid #764ba2;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: #6c757d;
+        }
+
+        .profile-card h2 {
+            margin: 0 0 10px 0;
+            color: #333333;
+        }
+
+        .profile-info {
+            font-size: 14px;
+            color: #6c757d;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+        }
+
+        .contact-btn {
+            background-color: #764ba2;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .contact-btn:hover {
+            background-color: #5a3285;
+        }
+
+        .contact-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Отдельный абзац для контактов */
+        .contact-details {
+            margin-top: 15px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #28a745;
+            /* Настройка плавного появления текста */
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Класс активации отображения контактов */
+        .contact-details.visible {
+            max-height: 50px;
+            opacity: 1;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <!-- Фото-плейсхолдер -->
+        <div class="profile-avatar">👤</div>
+        
+        <h2>Алексей Иванов</h2>
+        <p class="profile-info">Начинающий веб-разработчик и QA-инженер. Успешно завершил курс по проектированию информационных систем и тестированию ПО.</p>
+        
+        <button class="contact-btn" id="contactBtn">Показать контакты</button>
+        
+        <!-- Отдельный скрытый абзац для контактов по условию -->
+        <p class="contact-details" id="contactDetails">Email: alex@example.com</p>
+    </div>
+
+    <script>
+        const contactBtn = document.getElementById('contactBtn');
+        const contactDetails = document.getElementById('contactDetails');
+
+        contactBtn.addEventListener('click', function() {
+            // Переключаем класс видимости (показываем контакты)
+            contactDetails.classList.toggle('visible');
+
+            // Меняем текст кнопки в зависимости от текущего состояния
+            if (contactDetails.classList.contains('visible')) {
+                contactBtn.textContent = 'Скрыть контакты';
+            } else {
+                contactBtn.textContent = 'Показать контакты';
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 4</title>
+    <style>
+        /* Базовые стили для плавного изменения фона */
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s ease; /* Плавный переход */
+        }
+
+        /* Контейнер для кнопок в ряд */
+        .button-container {
+            display: flex;
+            gap: 15px; /* Отступы между кнопками */
+        }
+
+        /* Общие стили для кнопок */
+        .color-btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #ffffff;
+            border: 2px solid #333333; /* Рамка */
+            border-radius: 6px;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        .color-btn:hover {
+            opacity: 0.8;
+        }
+
+        .color-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-container">
+        <!-- Атрибут data-* используется для хранения значения цвета -->
+        <button class="color-btn" data-color="red">Красный</button>
+        <button class="color-btn" data-color="green">Зеленый</button>
+        <button class="color-btn" data-color="blue">Синий</button>
+    </div>
+
+    <script>
+        // Получаем все кнопки по их общему классу
+        const buttons = document.querySelectorAll('.color-btn');
+
+        // Назначаем обработчик каждому элементу списка
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const selectedColor = this.getAttribute('data-color');
+                // Меняем цвет фона body
+                document.body.style.backgroundColor = selectedColor;
+            });
+        });
+    </script>
+
+</body>
+</html>

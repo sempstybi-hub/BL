@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 7</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f6f8;
+        }
+
+        /* Стилизация обычной ссылки под кнопку */
+        .btn-link {
+            display: inline-block;
+            text-decoration: none; /* Убираем подчеркивание */
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #0056b3;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        /* Эффект при наведении курсора */
+        .btn-link:hover {
+            background-color: #0056b3;
+        }
+
+        /* Эффект при нажатии */
+        .btn-link:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ссылка на внешний тестовый сайт -->
+    <a href="https://example.com" class="btn-link" id="redirectLink">Перейти на Example.com</a>
+
+    <script>
+        const redirectLink = document.getElementById('redirectLink');
+
+        redirectLink.addEventListener('click', function(event) {
+            // confirm() выводит окно с кнопками ОК (true) и Отмена (false)
+            const isConfirmed = confirm('Вы действительно хотите перейти?');
+
+            // Если пользователь нажал "Отмена", блокируем переход по ссылке
+            if (!isConfirmed) {
+                event.preventDefault(); 
+            }
+        });
+    </script>
+
+</body>
+</html>

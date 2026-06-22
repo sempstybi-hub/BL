@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2</title>
+    <style>
+        /* Стили для абзаца */
+        .text-paragraph {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Стили для кнопки */
+        .btn-blue {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Визуальный отклик при наведении */
+        .btn-blue:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+    <p class="text-paragraph" id="targetParagraph">Исходный текст абзаца.</p>
+    <button class="btn-blue" id="changeTextBtn">Изменить текст</button>
+
+    <script>
+        // Получаем ссылки на элементы DOM
+        const paragraph = document.getElementById('targetParagraph');
+        const button = document.getElementById('changeTextBtn');
+
+        // Назначаем событие клика
+        button.addEventListener('click', function() {
+            paragraph.textContent = 'Текст изменен!';
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 26</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f1f3f5;
+        }
+
+        .accordion-container {
+            width: 350px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Заголовок аккордеона */
+        .accordion-header {
+            width: 100%;
+            background-color: #f8f9fa;
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+            color: #333333;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            outline: none;
+            transition: background-color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background-color: #e9ecef;
+        }
+
+        /* Текстовый блок со скрытием и анимацией по условию */
+        .accordion-content {
+            max-height: 0;          /* Скрыт по умолчанию */
+            opacity: 0;             /* Полностью прозрачен */
+            overflow: hidden;
+            background-color: #ffffff;
+            transition: max-height 0.3s ease, opacity 0.3s ease; /* Плавное появление */
+        }
+
+        .accordion-content p {
+            padding: 15px 20px;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #495057;
+        }
+
+        /* Стили для активного открытого состояния */
+        .accordion-item.active .accordion-content {
+            max-height: 150px;     /* Достаточная высота для раскрытия */
+            opacity: 1;            /* Становится видимым */
+        }
+
+        /* Стрелочка индикатора */
+        .accordion-header::after {
+            content: '▼';
+            font-size: 12px;
+            color: #6c757d;
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.active .accordion-header::after {
+            transform: rotate(180deg); /* Стрелочка переворачивается */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="accordion-container">
+        <!-- Секция 1 -->
+        <div class="accordion-item">
+            <button class="accordion-header">Раздел 1</button>
+            <div class="accordion-content">
+                <p>Это скрытый контент первого раздела. При клике на заголовок этот блок плавно разворачивается, а остальные скрываются.</p>
+            </div>
+        </div>
+
+        <!-- Секция 2 -->
+        <div class="accordion-item">
+            <button class="accordion-header">Раздел 2</button>
+            <div class="accordion-content">
+                <p>Текстовое наполнение второго раздела аккордеона. Здесь находится совершенно другая важная информация для экзамена.</p>
+            </div>
+        </div>
+
+        <!-- Секция 3 -->
+        <div class="accordion-item">
+            <button class="accordion-header">Раздел 3</button>
+            <div class="accordion-content">
+                <p>Финальный блок третьего раздела. Использование CSS transition гарантирует мягкий и приятный визуальный эффект анимации.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                // Находим родительский элемент (accordion-item) для нажатой кнопки
+                const currentItem = this.parentElement;
+
+                // Проверяем, активен ли он уже
+                const isAlreadyActive = currentItem.classList.contains('active');
+
+                // Закрываем абсолютно все разделы аккордеона по условию задачи
+                document.querySelectorAll('.accordion-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Если текущий элемент не был активен, открываем его
+                if (!isAlreadyActive) {
+                    currentItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

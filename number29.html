@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 29</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        .scroll-container {
+            width: 350px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .items-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            max-height: 300px;
+            overflow-y: auto; /* Скролл внутри контейнера */
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+
+        /* Элементы списка */
+        .list-item {
+            padding: 12px;
+            font-size: 15px;
+            color: #333333;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Чередование цвета фона по условию задачи (четные элементы - серые) */
+        .list-item:nth-child(even) {
+            background-color: #f1f3f5;
+        }
+
+        /* Нечетные элементы остаются белыми */
+        .list-item:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        /* Стили для кнопки управления */
+        .load-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .load-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Блокированное состояние по условию задачи */
+        .load-btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .counter-info {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-container">
+        <h3>Бесконечная прокрутка</h3>
+        
+        <!-- Список элементов -->
+        <ul class="items-list" id="itemsList">
+            <!-- Исходные 5 элементов для старта -->
+            <li class="list-item">Элемент списка 1</li>
+            <li class="list-item">Элемент списка 2</li>
+            <li class="list-item">Элемент списка 3</li>
+            <li class="list-item">Элемент списка 4</li>
+            <li class="list-item">Элемент списка 5</li>
+        </ul>
+
+        <button class="load-btn" id="loadMoreBtn">Загрузить еще</button>
+        <p class="counter-info" id="counterInfo">Всего элементов: 5 / 50</p>
+    </div>
+
+    <script>
+        const itemsList = document.getElementById('itemsList');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const counterInfo = document.getElementById('counterInfo');
+
+        // Инициализируем стартовый счетчик элементов
+        let currentItemsCount = 5;
+
+        loadMoreBtn.addEventListener('click', function() {
+            // Если лимит уже достигнут, прерываем выполнение (защитный код)
+            if (currentItemsCount >= 50) return;
+
+            // Добавляем ровно 5 новых элементов по условию задачи
+            for (let i = 1; i <= 5; i++) {
+                currentItemsCount++;
+                
+                const li = document.createElement('li');
+                li.className = 'list-item';
+                li.textContent = `Элемент списка ${currentItemsCount}`;
+                
+                itemsList.appendChild(li);
+            }
+
+            // Обновляем текстовую информацию на экране
+            counterInfo.textContent = `Всего элементов: ${currentItemsCount} / 50`;
+
+            // Автоматическая прокрутка списка вниз, чтобы пользователь видел новые элементы
+            itemsList.scrollTop = itemsList.scrollHeight;
+
+            // При достижении 50 элементов блокируем кнопку по условию задачи
+            if (currentItemsCount >= 50) {
+                loadMoreBtn.disabled = true;
+                loadMoreBtn.textContent = 'Лимит достигнут';
+                counterInfo.style.color = '#dc3545';
+                counterInfo.style.fontVerify = 'bold';
+            }
+        });
+    </script>
+
+</body>
+</html>

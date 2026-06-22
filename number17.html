@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 17</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        /* Крупная кнопка с тенью */
+        .random-btn {
+            font-size: 20px;
+            padding: 16px 32px;
+            font-weight: bold;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3); /* Тень */
+            transition: all 0.2s ease;
+        }
+
+        .random-btn:hover {
+            background-color: #0069d9;
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        /* Кнопка меняет цвет при физическом нажатии по условию */
+        .random-btn:active {
+            background-color: #28a745; /* Меняет цвет на зеленый */
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+            transform: scale(0.98);
+        }
+
+        /* Вывод сгенерированного числа крупным шрифтом */
+        .number-display {
+            margin-top: 30px;
+            font-size: 72px; /* Крупный шрифт */
+            font-weight: 900;
+            color: #343a40;
+            min-height: 86px;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="random-btn" id="generateBtn">Случайное число</button>
+    <p class="number-display" id="numberOutput"></p>
+
+    <script>
+        const generateBtn = document.getElementById('generateBtn');
+        const numberOutput = document.getElementById('numberOutput');
+
+        generateBtn.addEventListener('click', function() {
+            // Math.random() выдает от 0 до 0.999...
+            // Умножаем на 100, округляем вниз через Math.floor и добавляем 1, чтобы получить диапазон [1, 100]
+            const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+            // Выводим результат
+            numberOutput.textContent = randomNumber;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 11</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fcfcfc;
+        }
+
+        .auth-card {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        /* Инпуты и кнопки с внутренними отступами и рамкой */
+        .password-input {
+            padding: 10px 15px; /* Внутренние отступы */
+            font-size: 16px;
+            border: 1px solid #a0a0a0; /* Рамка */
+            border-radius: 4px;
+            margin-bottom: 15px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+
+        .login-btn {
+            padding: 10px 20px; /* Внутренние отступы */
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #333333;
+            color: #ffffff;
+            border: 1px solid #111111; /* Рамка */
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .login-btn:hover {
+            background-color: #555555;
+        }
+
+        /* Абзац для вывода сообщений */
+        .message-output {
+            margin-top: 15px;
+            font-size: 15px;
+            font-weight: bold;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <!-- type="password" скрывает вводимые символы точками -->
+        <input type="password" class="password-input" id="passField" placeholder="Введите пароль">
+        <br>
+        <button class="login-btn" id="loginBtn">Войти</button>
+        <p class="message-output" id="msgLabel"></p>
+    </div>
+
+    <script>
+        const passField = document.getElementById('passField');
+        const loginBtn = document.getElementById('loginBtn');
+        const msgLabel = document.getElementById('msgLabel');
+
+        loginBtn.addEventListener('click', function() {
+            const enteredPassword = passField.value;
+
+            // Проверка пароля на строгое соответствие
+            if (enteredPassword === '123') {
+                msgLabel.textContent = 'Доступ разрешен';
+                msgLabel.style.color = '#28a745'; // Зеленый
+            } else {
+                msgLabel.textContent = 'Неверный пароль';
+                msgLabel.style.color = '#dc3545'; // Красный
+            }
+        });
+    </script>
+
+</body>
+</html>

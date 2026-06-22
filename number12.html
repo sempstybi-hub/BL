@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 12</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f1f3f5;
+        }
+
+        .rating-box {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        /* Радиокнопки расположены горизонтально с отступами */
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Отступы между кнопками */
+            margin-bottom: 20px;
+        }
+
+        .radio-label {
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .radio-label input {
+            cursor: pointer;
+        }
+
+        /* Кнопка */
+        .vote-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .vote-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Вывод текста */
+        .result-text {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333333;
+            min-height: 22px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="rating-box">
+        <h3>Оцените работу приложения:</h3>
+        
+        <div class="radio-group">
+            <!-- Одинаковый name="rating" объединяет их в группу выбора одной опции -->
+            <label class="radio-label"><input type="radio" name="rating" value="1"> 1</label>
+            <label class="radio-label"><input type="radio" name="rating" value="2"> 2</label>
+            <label class="radio-label"><input type="radio" name="rating" value="3"> 3</label>
+        </div>
+
+        <button class="vote-btn" id="voteBtn">Голосовать</button>
+        <p class="result-text" id="resultText"></p>
+    </div>
+
+    <script>
+        const voteBtn = document.getElementById('voteBtn');
+        const resultText = document.getElementById('resultText');
+
+        voteBtn.addEventListener('click', function() {
+            // Находим выбранную радиокнопку из группы rating
+            const selectedRadio = document.querySelector('input[name="rating"]:checked');
+
+            // Если ни одна кнопка не выбрана
+            if (!selectedRadio) {
+                resultText.textContent = 'Пожалуйста, выберите оценку!';
+                resultText.style.color = '#dc3545';
+                return;
+            }
+
+            // Выводим значение выбранной радиокнопки
+            resultText.textContent = `Вы выбрали ${selectedRadio.value} звезд`;
+            resultText.style.color = '#28a745';
+        });
+    </script>
+
+</body>
+</html>
