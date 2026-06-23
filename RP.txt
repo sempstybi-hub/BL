@@ -1,0 +1,136 @@
+1. Придумываем БД (1 сущность, 5 столбцов), заполняем таблицу, пофиг.
+
+2. Перейти в Visual Studio. Создание проекта -> Веб-приложение ASP.NET Core.
+
+3. ПКМ по решению, создаем папку Models, а в ней класс Product.cs (или др. название по теме).
+
+4. Product.cs:
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+
+namespace НАЗВАНИЕ_ПРОЕКТА_В_ВИЗУАЛКЕ.Models
+{
+    public class Product
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Название обязательно")]
+        [StringLength(100, ErrorMessage = "Название товара не должно превышать 100 символов")]
+        [Display(Name = "Название продукта")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Цена продукта обязательна")]
+        [Range(0.01, 10000, ErrorMessage = "Цена должна быть между 0.01 и 10000")]
+        [Display(Name = "Цена")]
+        [Precision(10,2)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
+
+        [Required(ErrorMessage = "Описание товара обязательно")]
+        [StringLength(1000, ErrorMessage = "Описание товара не должно превышать 1000 символов")]
+        [Display(Name = "Описание продукта")]
+        public string Description { get; set; }
+
+        [Required(ErrorMessage = "Введите кол-во товара на складе")]
+        [Range(1, 1000000, ErrorMessage = "Остаток на складе должен быть от 1шт. до 1000000шт.")]
+        [Display(Name = "Остаток на складе")]
+        public int StockQuantity { get; set; }
+    }
+}
+
+5. Ставим NuGet-пакеты (версия 9.0.15):
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.EntityFrameworkCore.Design
+
+6. Models -> Создать класс ApplicationDbContext.cs.
+
+7. ApplicationDbContext.cs:
+using Microsoft.EntityFrameworkCore;
+
+namespace НАЗВАНИЕ_ПРОЕКТА_В_ВИЗУАЛКЕ.Models
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Product>(entity =>
+
+            entity.Property(p => p.Price)
+                  .HasPrecision(10,2)
+            );
+        }
+    }
+}
+
+8. appsettings.json:
+{
+    "ConnectionStrings": {
+        "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=НАЗВАНИЕ_ПРОЕКТА_В_VISUAL_STUDIO;Trusted_Connection=true;MultipleActiveResultSets=true"
+    },
+    ...
+}
+
+9. Исправляем Program.cs:
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Add services to the container.
+builder.Services.AddRazorPages();
+
+...
+
+app.MapRazorPages()
+   .WithStaticAssets();
+
+app.MapRazorPages();
+
+app.Run();
+
+10. ПКМ по папке Pages -> Add -> New Folder -> Products.
+
+11. ПКМ по папке Products -> Добавить -> Шаблонный элемент -> Razor Pages на основе Entity Framework (CRUD).
+
+12. Миграция... Tools -> NuGet Package Manager -> Package Manager Console -> Add-Migration InitialCreate -> Update-Database.
+
+13. Поправить Pages/Shared/_Layout.cshtml:
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Товары</a>
+</li>
+
+14. Pages/Index.cshtml
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Главная страница";
+}
+
+<div class="text-center">
+  <h1 class="display-4">Добро пожаловать!</hi>
+  <p>Система управления продуктами на ASP.NET (http://asp.net/) Core с Razor Pages</p>
+
+  <div class="row mt-5">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Быстрый старт</h5>
+          <p class="card-text">Начните работу с системой управления продуктами</p>
+          <a asp-page="/Products/Index" class="btn btn-primary">Перейти к продуктам</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
