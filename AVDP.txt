@@ -1,0 +1,1213 @@
+================================================================================
+                    ПОЛНЫЙ СПИСОК ВОПРОСОВ И ОТВЕТОВ ПО JAVA
+================================================================================
+
+================================================================================
+ВОПРОС 1
+================================================================================
+Напишите фрагмент кода на Java, реализующий паттерн «Одиночка» (Singleton) с 
+потокобезопасной ленивой инициализацией.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+public class Singleton {
+    // volatile нужен для корректной работы в многопоточности
+    private static volatile Singleton instance;
+
+    // приватный конструктор — запрещаем создание извне
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        if (instance == null) { // первая проверка (быстрая)
+            synchronized (Singleton.class) {
+                if (instance == null) { // вторая проверка (безопасная)
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+}
+
+// private constructor → нельзя создать объект через new
+// static instance → хранит единственный объект класса
+// lazy initialization → объект создаётся только при первом вызове getInstance()
+// synchronized → защищает от одновременного создания в потоках
+// double-check → уменьшает накладные расходы (синхронизация только при первом создании)
+// volatile → гарантирует корректную видимость объекта между потоками
+
+================================================================================
+ВОПРОС 2
+================================================================================
+Создайте интерфейс «Фигура» с методом вычисления площади и реализуйте его для 
+классов «Круг» и «Квадрат».
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+// Интерфейс "Фигура"
+interface Фигура {
+    double площадь();
+}
+
+// Класс "Круг"
+class Круг implements Фигура {
+    private double радиус;
+
+    public Круг(double радиус) {
+        this.радиус = радиус;
+    }
+
+    @Override
+    public double площадь() {
+        return Math.PI * радиус * радиус;
+    }
+}
+
+// Класс "Квадрат"
+class Квадрат implements Фигура {
+    private double сторона;
+
+    public Квадрат(double сторона) {
+        this.сторона = сторона;
+    }
+
+    @Override
+    public double площадь() {
+        return сторона * сторона;
+    }
+}
+
+// Главный класс (запуск программы)
+public class Main {
+    public static void main(String[] args) {
+        // создаём объекты фигур
+        Фигура круг = new Круг(5);
+        Фигура квадрат = new Квадрат(4);
+
+        // вывод площадей
+        System.out.println("Площадь круга: " + круг.площадь());
+        System.out.println("Площадь квадрата: " + квадрат.площадь());
+    }
+}
+
+// используется интерфейс → общий контракт
+// разные классы реализуют один метод по-разному
+// это пример полиморфизма
+// запуск идёт через main
+
+================================================================================
+ВОПРОС 3
+================================================================================
+Напишите код, который с помощью Stream API отфильтрует список строк, оставив 
+только те, что начинаются с заглавной буквы, и преобразует их в верхний регистр.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> strings = Arrays.asList(
+                "Apple",
+                "banana",
+                "Cherry",
+                "date",
+                "Fig",
+                "grape"
+        );
+
+        List<String> result = strings.stream()
+                // фильтруем строки, начинающиеся с заглавной буквы
+                .filter(s -> !s.isEmpty() && Character.isUpperCase(s.charAt(0)))
+                
+                // переводим в верхний регистр
+                .map(String::toUpperCase)
+                
+                // собираем обратно в список
+                .collect(Collectors.toList());
+
+        System.out.println(result);
+    }
+}
+
+// stream() → создаём поток данных
+// filter() → фильтрация по условию (первая буква заглавная)
+// map() → преобразование элементов
+// collect() → сбор результата обратно в список
+// используется функциональный стиль программирования
+
+================================================================================
+ВОПРОС 4
+================================================================================
+Реализуйте метод, который принимает список чисел и возвращает Map, где ключом 
+является четность числа (true/false), а значением — список самих чисел.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        Map<Boolean, List<Integer>> result = groupByEvenOdd(numbers);
+        System.out.println(result);
+    }
+
+    // метод группировки
+    public static Map<Boolean, List<Integer>> groupByEvenOdd(List<Integer> numbers) {
+        return numbers.stream()
+                .collect(Collectors.groupingBy(n -> n % 2 == 0));
+    }
+}
+
+// используется Stream API
+// groupingBy группирует элементы по условию
+// ключ — результат логического выражения
+// значение — список элементов, подходящих под ключ
+
+================================================================================
+ВОПРОС 5
+================================================================================
+Напишите собственный класс исключения InvalidDataException, наследующийся от 
+RuntimeException, с конструктором, принимающим сообщение.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+class InvalidDataException extends RuntimeException {
+    public InvalidDataException(String message) {
+        super(message);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int age = -5;
+
+        if (age < 0) {
+            throw new InvalidDataException("Age cannot be negative");
+        }
+
+        System.out.println("Возраст: " + age);
+    }
+}
+
+// Программа крашится с нашим комментарием, все ок
+// это пользовательское исключение
+// расширяет RuntimeException
+// используется для логических ошибок в данных
+// позволяет явно сигнализировать о некорректных входных значениях
+
+================================================================================
+ВОПРОС 6
+================================================================================
+Продемонстрируйте использование конструкции try-with-resources для чтения 
+текста из файла.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) {
+        String path = "input.txt";
+
+        // try-with-resources
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Ошибка при чтении файла: " + e.getMessage());
+        }
+    }
+}
+
+// Создать файл input.txt
+// try-with-resources автоматически закрывает ресурсы
+// используется с AutoCloseable
+// BufferedReader реализует AutoCloseable
+// исключения обрабатываются через IOException
+
+================================================================================
+ВОПРОС 7
+================================================================================
+Напишите код для безопасного получения значения из объекта Optional<String>, 
+предоставив значение по умолчанию, если оно пустое.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import java.util.Optional;
+
+public class Main {
+    public static void main(String[] args) {
+        Optional<String> value = Optional.ofNullable(null);
+
+        // безопасное получение значения с дефолтом
+        String result = value.orElse("Значение по умолчанию");
+
+        System.out.println(result);
+    }
+}
+
+// Эта фигня выведет значение по умолчанию, если не поменять .ofNullable(null)
+// Optional — контейнер, который может содержать null или значение
+// orElse() — возвращает значение или дефолт
+// используется для избежания NullPointerException
+
+================================================================================
+ВОПРОС 8
+================================================================================
+Создайте простой класс-сущность (Entity) для JPA, представляющий таблицу 
+«Пользователь» с полями id, имя и email.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String email;
+
+    // конструктор без параметров (обязателен для JPA)
+    public User() {
+    }
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    // getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+}
+
+// @Entity - говорит, что класс — это сущность БД
+// @Table(name = "users") - связывает класс с таблицей в базе
+// @Id - первичный ключ
+// @GeneratedValue - авто-генерация id (обычно AUTO_INCREMENT)
+
+================================================================================
+ВОПРОС 9
+================================================================================
+Напишите аннотированный метод Spring-контроллера, который обрабатывает 
+POST-запрос по адресу /api/users и принимает JSON-тело запроса.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    @PostMapping
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        // здесь обычно была бы логика сохранения в БД
+        System.out.println("Получен пользователь: " + user.getName());
+        return ResponseEntity.ok("User created successfully");
+    }
+}
+
+================================================================================
+ВОПРОС 10
+================================================================================
+Реализуйте метод Spring Data JPA-репозитория для поиска всех пользователей 
+по их имени без написания SQL-запроса (query derivation).
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    // поиск всех пользователей по имени
+    List<User> findByName(String name);
+}
+
+================================================================================
+ВОПРОС 11
+================================================================================
+Напишите тестовый метод с использованием JUnit 5, который проверяет, что 
+деление на ноль выбрасывает исключение ArithmeticException.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public class CalculatorTest {
+    @Test
+    void testDivisionByZeroThrowsException() {
+        assertThrows(ArithmeticException.class, () -> {
+            int result = 10 / 0;
+        });
+    }
+}
+
+================================================================================
+ВОПРОС 12
+================================================================================
+Используя Mockito, напишите фрагмент теста, который создает мок-объект 
+репозитория и настраивает его на возврат конкретного списка при вызове 
+метода findAll().
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import java.util.Arrays;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+public class UserServiceTest {
+    @Test
+    void testFindAllReturnsMockedList() {
+        // 1. создаём mock репозитория
+        UserRepository userRepository = Mockito.mock(UserRepository.class);
+
+        // 2. подготавливаем тестовые данные
+        List<User> mockUsers = Arrays.asList(
+                new User("Ivan", "ivan@mail.com"),
+                new User("Anna", "anna@mail.com")
+        );
+
+        // 3. настраиваем поведение mock
+        when(userRepository.findAll()).thenReturn(mockUsers);
+
+        // 4. вызываем метод
+        List<User> result = userRepository.findAll();
+
+        // 5. проверка
+        assertEquals(2, result.size());
+        assertEquals("Ivan", result.get(0).getName());
+
+        // 6. проверяем, что метод реально вызывался
+        verify(userRepository, times(1)).findAll();
+    }
+}
+
+================================================================================
+ВОПРОС 13
+================================================================================
+Напишите код, демонстрирующий создание и запуск нового потока выполнения 
+с использованием интерфейса Runnable и лямбда-выражения.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+public class Main {
+    public static void main(String[] args) {
+        // создание потока через Runnable + лямбда
+        Runnable task = () -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Поток выполняется: " + i);
+                try {
+                    Thread.sleep(500); // пауза для наглядности
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        // создание потока
+        Thread thread = new Thread(task);
+
+        // запуск потока
+        thread.start();
+
+        // основной поток
+        System.out.println("Main поток завершил запуск");
+    }
+}
+
+// Runnable — функциональный интерфейс для задачи потока
+// лямбда используется вместо анонимного класса
+// Thread управляет выполнением потока
+// start() запускает новый поток
+
+================================================================================
+ВОПРОС 14
+================================================================================
+Реализуйте метод, который синхронизирует доступ к общему счетчику, чтобы 
+избежать состояния гонки при многопоточном инкременте.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+public class Counter {
+    private int count = 0;
+
+    // синхронизированный метод инкремента
+    public synchronized void increment() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+
+        Runnable task = () -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        };
+
+        Thread t1 = new Thread(task);
+        Thread t2 = new Thread(task);
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+        System.out.println("Итог: " + counter.getCount());
+    }
+}
+
+================================================================================
+ВОПРОС 15
+================================================================================
+Напишите фрагмент кода, переопределяющий методы equals() и hashCode() для 
+класса, содержащего поля String name и int age.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import java.util.Objects;
+
+public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // equals()
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age && Objects.equals(name, person.name);
+    }
+
+    // hashCode()
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+}
+
+================================================================================
+ВОПРОС 16
+================================================================================
+Создайте аннотированный Spring-сервис, который внедряет зависимость 
+репозитория через конструктор.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
+import java.util.List;
+
+// ===== ENTITY =====
+class User {
+    String name;
+    String email;
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+}
+
+// ===== REPOSITORY =====
+@Repository
+class UserRepository {
+    public List<User> findAll() {
+        return new ArrayList<>();
+    }
+}
+
+// ===== SERVICE =====
+@Service
+class UserService {
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+}
+
+================================================================================
+ВОПРОС 17
+================================================================================
+Напишите тест с использованием MockMvc для проверки того, что GET-запрос к 
+эндпоинту /api/status возвращает HTTP-статус 200.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebMvcTest
+public class StatusControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void testStatusEndpointReturns200() throws Exception {
+        mockMvc.perform(get("/api/status"))
+                .andExpect(status().isOk());
+    }
+}
+
+================================================================================
+ВОПРОС 18
+================================================================================
+Реализуйте паттерн «Стратегия» для расчета стоимости доставки: создайте 
+интерфейс и две реализации (курьер и почта).
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+// 1. Интерфейс стратегии
+package strategy;
+
+public interface DeliveryStrategy {
+    double calculateCost(double weight);
+}
+
+// 2. Реализация - Курьер
+package strategy;
+
+public class CourierDelivery implements DeliveryStrategy {
+    @Override
+    public double calculateCost(double weight) {
+        return 300 + weight * 50;
+    }
+}
+
+// 3. Реализация - Почта
+package strategy;
+
+public class PostDelivery implements DeliveryStrategy {
+    @Override
+    public double calculateCost(double weight) {
+        return 100 + weight * 20;
+    }
+}
+
+// 4. Контекст
+package context;
+
+import strategy.DeliveryStrategy;
+
+public class DeliveryContext {
+    private DeliveryStrategy strategy;
+
+    public void setStrategy(DeliveryStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public double calculate(double weight) {
+        return strategy.calculateCost(weight);
+    }
+}
+
+// 5. Main
+import context.DeliveryContext;
+import strategy.CourierDelivery;
+import strategy.PostDelivery;
+
+public class Main {
+    public static void main(String[] args) {
+        DeliveryContext context = new DeliveryContext();
+        double weight = 5;
+
+        context.setStrategy(new CourierDelivery());
+        System.out.println("Курьер: " + context.calculate(weight));
+
+        context.setStrategy(new PostDelivery());
+        System.out.println("Почта: " + context.calculate(weight));
+    }
+}
+
+================================================================================
+ВОПРОС 19
+================================================================================
+Напишите код, который преобразует массив строк в список целых чисел, 
+отфильтровывая некорректные значения с помощью Stream API.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        String[] data = {"10", "20", "abc", "30", "4x", "50", "-7"};
+
+        List<Integer> result = Arrays.stream(data)
+                // оставляем только строки, которые можно преобразовать в число
+                .filter(Main::isNumeric)
+                // преобразуем в Integer
+                .map(Integer::parseInt)
+                // собираем в список
+                .collect(Collectors.toList());
+
+        System.out.println(result);
+    }
+
+    // проверка: является ли строка числом
+    private static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+}
+
+================================================================================
+ВОПРОС 20
+================================================================================
+Создайте параметризованный тест в JUnit 5, который проверяет метод возведения 
+в квадрат на нескольких наборах входных данных.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class MathTest {
+    // тестируем метод возведения в квадрат
+    public int square(int x) {
+        return x * x;
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "2, 4",
+            "3, 9",
+            "4, 16",
+            "-5, 25",
+            "0, 0"
+    })
+    void testSquare(int input, int expected) {
+        assertEquals(expected, square(input));
+    }
+}
+
+================================================================================
+ВОПРОС 21
+================================================================================
+Напишите SQL-запрос (или JPQL) для выбора всех заказов конкретного пользователя 
+с сортировкой по дате.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+SELECT * FROM orders WHERE user_id = ? ORDER BY order_date DESC;
+
+-- ИЛИ JPQL:
+-- SELECT o FROM Order o WHERE o.user.id = :userId ORDER BY o.orderDate DESC
+
+================================================================================
+ВОПРОС 22
+================================================================================
+Реализуйте кастомный валидатор или напишите код проверки входных данных в 
+сервисном слое до обращения к базе данных.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import jakarta.validation.Constraint;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.Payload;
+import java.lang.annotation.*;
+import java.util.regex.Pattern;
+
+// ===================== АННОТАЦИЯ =====================
+@Constraint(validatedBy = EmailValidator.class)
+@Target({ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+@interface ValidEmail {
+    String message() default "Email некорректный";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
+}
+
+// ===================== ВАЛИДАТОР =====================
+class EmailValidator implements ConstraintValidator<ValidEmail, String> {
+    private static final Pattern EMAIL_PATTERN =
+            Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null) return false;
+        return EMAIL_PATTERN.matcher(value).matches();
+    }
+}
+
+// ===================== ENTITY =====================
+class User {
+    private String name;
+    @ValidEmail
+    private String email;
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+}
+
+// ===================== SERVICE =====================
+class UserService {
+    public void createUser(String name, String email) {
+        if (name == null || name.isBlank()) {
+            throw new RuntimeException("Имя пустое");
+        }
+        if (email == null || !email.contains("@")) {
+            throw new RuntimeException("Email некорректный");
+        }
+        System.out.println("Пользователь создан");
+    }
+}
+
+// ===================== MAIN =====================
+public class Main {
+    public static void main(String[] args) {
+        UserService service = new UserService();
+        service.createUser("Ivan", "ivan@mail.com");
+    }
+}
+
+================================================================================
+ВОПРОС 23
+================================================================================
+Напишите код, использующий CompletableFuture для асинхронного выполнения двух 
+задач и объединения их результатов.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import java.util.concurrent.CompletableFuture;
+
+public class Main {
+    public static void main(String[] args) {
+        // Первая асинхронная задача
+        CompletableFuture<Integer> task1 = CompletableFuture.supplyAsync(() -> {
+            sleep(1000);
+            return 10;
+        });
+
+        // Вторая асинхронная задача
+        CompletableFuture<Integer> task2 = CompletableFuture.supplyAsync(() -> {
+            sleep(1500);
+            return 20;
+        });
+
+        // Объединение результатов
+        CompletableFuture<Integer> result = task1.thenCombine(task2, (a, b) -> a + b);
+
+        // получение результата (блокировка main потока)
+        System.out.println("Результат: " + result.join());
+    }
+
+    private static void sleep(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+================================================================================
+ВОПРОС 24
+================================================================================
+Создайте конфигурационный класс Spring (@Configuration), который объявляет 
+бин с определенной логикой инициализации.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+// src/config/AppConfig.java
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+    @Bean
+    public UserService userService() {
+        // логика инициализации
+        System.out.println("Инициализация UserService bean");
+        UserService service = new UserService();
+        // можно задать начальные параметры
+        service.setPrefix("USER:");
+        return service;
+    }
+}
+
+================================================================================
+ВОПРОС 25
+================================================================================
+Напишите тест, который использует аннотацию @BeforeEach для инициализации 
+тестовых данных перед каждым запуском.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UserServiceTest {
+    private List<String> users;
+
+    // выполняется ПЕРЕД КАЖДЫМ тестом
+    @BeforeEach
+    void setUp() {
+        users = new ArrayList<>();
+        users.add("Ivan");
+        users.add("Anna");
+    }
+
+    @Test
+    void testUsersSize() {
+        assertEquals(2, users.size());
+    }
+
+    @Test
+    void testContainsIvan() {
+        assertEquals(true, users.contains("Ivan"));
+    }
+}
+
+================================================================================
+ВОПРОС 26
+================================================================================
+Реализуйте метод, который принимает коллекцию объектов и возвращает сумму 
+определенного числового поля с использованием Collectors.summingInt.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+// src/model/Product.java
+package model;
+
+public class Product {
+    private String name;
+    private int price;
+
+    public Product(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+}
+
+// src/Main.java
+import model.Product;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Product> products = Arrays.asList(
+                new Product("A", 100),
+                new Product("B", 200),
+                new Product("C", 300)
+        );
+
+        int sum = products.stream()
+                .collect(Collectors.summingInt(Product::getPrice));
+
+        System.out.println("Сумма: " + sum);
+    }
+}
+
+================================================================================
+ВОПРОС 27
+================================================================================
+Напишите фрагмент кода, демонстрирующий обработку глобальных исключений в 
+Spring Boot с помощью @ControllerAdvice.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+// 1. Кастомное исключение
+public class UserNotFoundException extends RuntimeException {
+    public UserNotFoundException(String message) {
+        super(message);
+    }
+}
+
+// 2. Модель ответа ошибки
+public class ErrorResponse {
+    private String message;
+    private int status;
+
+    public ErrorResponse(String message, int status) {
+        this.message = message;
+        this.status = status;
+    }
+
+    public String getMessage() { return message; }
+    public int getStatus() { return status; }
+}
+
+// 3. Global Exception Handler
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException ex) {
+        ErrorResponse response = new ErrorResponse(
+                ex.getMessage(),
+                HttpStatus.NOT_FOUND.value()
+        );
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
+        ErrorResponse response = new ErrorResponse(
+                "Внутренняя ошибка сервера",
+                HttpStatus.INTERNAL_SERVER_ERROR.value()
+        );
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+// 4. Контроллер (пример)
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class UserController {
+    @GetMapping("/users/{id}")
+    public String getUser(@PathVariable int id) {
+        if (id == 0) {
+            throw new UserNotFoundException("Пользователь не найден");
+        }
+        return "User " + id;
+    }
+}
+
+================================================================================
+ВОПРОС 28
+================================================================================
+Создайте интерфейс и его реализацию, где метод возвращает List<String>, и 
+напишите тест, проверяющий, что список не пуст.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+// 1. Интерфейс
+package service;
+import java.util.List;
+
+public interface MessageService {
+    List<String> getMessages();
+}
+
+// 2. Реализация
+package service;
+import java.util.Arrays;
+import java.util.List;
+
+public class MessageServiceImpl implements MessageService {
+    @Override
+    public List<String> getMessages() {
+        return Arrays.asList("Hello", "World");
+    }
+}
+
+// 3. Тест (JUnit 5)
+import org.junit.jupiter.api.Test;
+import service.MessageService;
+import service.MessageServiceImpl;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+public class MessageServiceTest {
+    @Test
+    void testMessagesNotEmpty() {
+        MessageService service = new MessageServiceImpl();
+        List<String> messages = service.getMessages();
+        assertFalse(messages.isEmpty());
+    }
+}
+
+================================================================================
+ВОПРОС 29
+================================================================================
+Напишите код для настройки логгера (SLF4J) в классе и добавьте запись уровня 
+INFO и ERROR в бизнес-метод.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class OrderService {
+    // создаём логгер
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
+    public void processOrder(int orderId) {
+        logger.info("Начало обработки заказа: {}", orderId);
+
+        try {
+            if (orderId <= 0) {
+                throw new IllegalArgumentException("Некорректный ID заказа");
+            }
+
+            // бизнес-логика
+            System.out.println("Обработка заказа " + orderId);
+
+            logger.info("Заказ успешно обработан: {}", orderId);
+
+        } catch (Exception e) {
+            logger.error("Ошибка при обработке заказа: {}", orderId, e);
+        }
+    }
+}
+
+================================================================================
+ВОПРОС 30
+================================================================================
+Спроектируйте (опишите словами или псевдокодом) структуру базы данных из двух 
+таблиц (например, «Автор» и «Книга») со связью «один-ко-многим» и укажите, 
+как это реализуется через аннотации JPA.
+
+МОЙ ОТВЕТ:
+--------------------------------------------------------------------------------
+✔️ 1. СУТЬ СВЯЗИ
+Автор → Книги
+Один автор может написать много книг
+Одна книга принадлежит одному автору
+
+🌳 ЛОГИЧЕСКАЯ СТРУКТУРА БД
+
+Author
+------
+id (PK)
+name
+
+Book
+------
+id (PK)
+title
+author_id (FK → Author.id)
+
+Связь: Author (1) ───── (∞) Book
+
+✔️ 2. JPA РЕАЛИЗАЦИЯ
+
+📄 Author.java (родитель)
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
+public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    // 1 автор → много книг
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<Book> books;
+
+    public Author() {}
+}
+
+📄 Book.java (дочерняя сущность)
+import jakarta.persistence.*;
+
+@Entity
+public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    // много книг → один автор
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
+
+    public Book() {}
+}
+
+💡 3. КАК ЭТО РАБОТАЕТ
+
+📌 @OneToMany (в Author)
+mappedBy = "author" → связь управляется со стороны Book
+
+📌 @ManyToOne (в Book)
+@JoinColumn(name = "author_id") → создаёт внешний ключ в таблице Book
+
+✔️ 4. ЧТО БУДЕТ В БД
+
+Author
+id  name
+1   Tolstoy
+
+Book
+id  title           author_id
+1   War and Peace   1
+2   Anna Karenina   1
+
+================================================================================
+                            КОНЕЦ СПИСКА
+================================================================================
