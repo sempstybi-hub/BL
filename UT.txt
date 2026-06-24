@@ -1,0 +1,162 @@
+УЛЬТИМАТИВНЫЙ ГАЙД: КАК ДЕЛАТЬ UNIT-ТЕСТЫ (4-е ЗАДАНИЕ)
+
+1. Подготовка. Создание проекта с твоим классом
+Цель: Сделать проект, где лежит твоя основная логика (класс с методом для тестов). Ты не сможешь протестировать код, если он просто лежит в папке Pages. Его нужно вынести в отдельную библиотеку или просто в папку Models/Classes.
+Важно: В 4-м задании тестируется метод. Например: CalculateDiscount(price), IsAvailable(amount), CalculateExperience(year).
+Алгоритм:
+В Visual Studio создай Новый проект.
+Выбери "Консольное приложение (.NET Framework)" или "Библиотека классов (.NET Core)" (для тестов подойдёт любое, но мы сделаем как в методичке).
+Имя: MyAppФамилия (например, ProductAppIvanov).
+В Обозревателе решений (справа) нажми ПКМ по проекту -> Свойства.
+В разделе "Приложение" измени "Тип выходных данных" на "Библиотека классов". (Это чтобы наш проект можно было подключить к тестам).
+
+2. Создаём класс и метод для теста
+Создай папку: ПКМ по проекту -> Добавить -> Новая папка. Назови Classes (или оставь как есть).
+Создай класс: ПКМ по папке -> Добавить -> Класс. Назови его, например, ProductHelper.cs (или как в твоём задании).
+Напиши метод. Это твой "сервис", который будет считать скидку, проверять доступность и т.д.
+Важно! Метод должен быть public (публичным), иначе тесты его не увидят. Часто метод делают static (статическим), чтобы не создавать объект класса.
+Пример кода класса для Задания 1 (Скидка на товары):
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+// Это пример для задания 1 (Интернет-магазин)
+namespace ProductAppIvanov.Classes // Название твоего проекта + папка
+{
+    public class ProductHelper
+    {
+        // Метод расчета скидки. static - чтобы не создавать экземпляр класса.
+        public static decimal CalculateDiscount(decimal price)
+        {
+            // Условие из задания: скидка 10% при цене > 1000
+            if (price > 1000)
+            {
+                return price * 0.10m; // Возвращаем сумму скидки
+            }
+            return 0; // Иначе скидки нет
+        }
+    }
+}
+
+3. Создаём проект с Unit-тестами
+ПКМ по Решению (самый верхний пункт в обозревателе, обычно называется Solution 'MyAppIvanov') -> Добавить -> Новый проект.
+В поиске введи "тест" (или "test").
+Выбери шаблон "Проект модульного теста (.NET Framework)" (или для .NET Core, если основной проект на .NET Core). В методичке используется .NET Framework.
+Настрой проект:
+Имя: ProductAppIvanov.Tests (к названию основного проекта добавляем .Tests).
+Нажми "Создать".
+
+4. Настраиваем связь между проектами
+Чтобы тесты видели твой основной класс, нужно добавить ссылку.
+В обозревателе решений нажми ПКМ по проекту ProductAppIvanov.Tests (твой тестовый проект).
+Выбери "Добавить" -> "Ссылка".
+В открывшемся окне перейди на вкладку "Проекты".
+Отметь галочкой твой основной проект (например, ProductAppIvanov).
+Нажми "ОК".
+
+5. Создаём класс с тестами
+В проекте ProductAppIvanov.Tests удали стандартный файл UnitTest1.cs (ПКМ -> Удалить).
+Создай новый класс: ПКМ по тестовому проекту -> Добавить -> Класс.
+Назови его, например, ProductHelperTests.cs.
+Важно: В этом файле мы будем использовать атрибуты [TestClass] и [TestMethod]. Для этого нужно добавить using Microsoft.VisualStudio.TestTools.UnitTesting; (в современных студиях это стоит по умолчанию, но проверь).
+Общая структура тестового класса:
+
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+// Подключаем наш основной проект, чтобы использовать классы оттуда
+using ProductAppIvanov.Classes; 
+
+namespace ProductAppIvanov.Tests
+{
+    [TestClass] // Говорим: "Это класс с тестами"
+    public class ProductHelperTests
+    {
+        // 1. ТЕСТ №1: Цена 500 (скидки нет)
+        [TestMethod] // Говорим: "Это метод-тест"
+        public void CalculateDiscount_PriceLessThanThreshold_ReturnsZero()
+        {
+            // --- Шаг 1: Arrange (Подготовка) ---
+            decimal price = 500;
+            decimal expectedDiscount = 0; // Ожидаем 0
+
+            // --- Шаг 2: Act (Действие) ---
+            // Вызываем наш тестируемый метод
+            decimal actualDiscount = ProductHelper.CalculateDiscount(price);
+
+            // --- Шаг 3: Assert (Проверка) ---
+            // Сравниваем то, что получили (actual) с тем, что ожидали (expected)
+            Assert.AreEqual(expectedDiscount, actualDiscount);
+        }
+
+        // 2. ТЕСТ №2: Цена 1500 (скидка 150)
+        [TestMethod]
+        public void CalculateDiscount_PriceHigherThanThreshold_ReturnsTenPercent()
+        {
+            // Arrange
+            decimal price = 1500;
+            decimal expectedDiscount = 150; // 10% от 1500 = 150
+
+            // Act
+            decimal actualDiscount = ProductHelper.CalculateDiscount(price);
+
+            // Assert
+            Assert.AreEqual(expectedDiscount, actualDiscount);
+        }
+
+        // 3. ТЕСТ №3: Цена ровно 1000 (граница, скидки нет)
+        [TestMethod]
+        public void CalculateDiscount_PriceEqualsThreshold_ReturnsZero()
+        {
+            // Arrange
+            decimal price = 1000;
+            decimal expectedDiscount = 0;
+
+            // Act
+            decimal actualDiscount = ProductHelper.CalculateDiscount(price);
+
+            // Assert
+            Assert.AreEqual(expectedDiscount, actualDiscount);
+        }
+    }
+}
+
+6. Запускаем тесты
+В верхнем меню VS выбери "Тест" -> "Обозреватель тестов".
+Справа откроется окно.
+Нажми зелёную кнопку "Запустить все" (или нажми Ctrl + R, A).
+Смотри на результат:
+🟢 Зелёная галочка — тест пройден (отлично!).
+🔴 Красный крестик — тест упал (ищи ошибку в коде).
+
+7. Шпаргалка по ключевым моментам
+Атрибуты (Теги)
+[TestClass] — пишем над классом.
+[TestMethod] — пишем над методом (каждый тест — отдельный метод).
+[TestInitialize] — метод, который выполняется перед каждым тестом (можно создать объект класса один раз, чтобы не писать new в каждом тесте).
+Методы проверки (Assert)
+Assert.AreEqual(ожидаемое, фактическое); — проверяет, равны ли числа/строки.
+Assert.IsTrue(условие); — проверяет, что условие верно (например, Assert.IsTrue(actual > 0);).
+Assert.ThrowsException<ТипОшибки>( () => ВашМетод() ); — проверяет, что метод выбрасывает исключение (ошибку). Используется, если метод должен выдавать ошибку (например, при попытке снять деньги, когда их нет).
+8. Как переделать под ЛЮБОЕ задание
+В твоём файле "Задания для подготовки..." в пункте 4 написана логика.
+Тебе нужно просто заменить название класса, название метода и условие внутри метода.
+Задание 2 (Библиотека): В классе BookHelper создаёшь метод public static bool IsAvailable(int copies) (если копий > 0 -> true).
+Задание 4 (Гостиница): В классе RoomHelper создаёшь метод public static decimal CalculateTotal(decimal pricePerNight, int nights).
+Тесты: (2, 3000) -> ожидаем 6000.
+Задание 12 (Банк): В классе BankHelper создаёшь метод public static decimal Withdraw(decimal balance, decimal amount).
+Важно: Если сумма снятия больше баланса, метод должен выбросить ошибку.
+Тест на ошибку будет выглядеть так:
+csharp
+[TestMethod]
+public void Withdraw_AmountMoreThanBalance_ThrowsException()
+{
+    // Проверяем, что при попытке снять 600 с баланса 500 - вылетает ошибка
+    Assert.ThrowsException<InvalidOperationException>( () => BankHelper.Withdraw(500, 600) );
+}
+9. Что делать, если тесты "не видят" друг друга?
+Проверь, что основной проект имеет тип "Библиотека классов" (см. пункт 1).
+Проверь, что в тестовом проекте есть Ссылка на основной проект (см. пункт 4).
+Проверь, что метод в основном проекте имеет слово public.
