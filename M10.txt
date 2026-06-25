@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Билет №10 — Constructors
 
 1. Файл Main.java
@@ -26,4 +27,34 @@ public class Main {
 
         student.showInfo();
     }
+=======
+Билет №10 — Constructors
+
+1. Файл Main.java
+
+class Student {
+    String name;
+    int age;
+
+    // Конструктор
+    Student(String n, int a) {
+        name = n;
+        age = a;
+    }
+
+    void showInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Создание объекта с помощью конструктора
+        Student student = new Student("Alex", 20);
+
+        student.showInfo();
+    }
+>>>>>>> 9c3327032a9d4787edc5ff1324eee2c64c490ac3
 }

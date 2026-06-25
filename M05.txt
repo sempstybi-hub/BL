@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Билет №5 — All Operators
 
 1. Файл Main.java
@@ -64,4 +65,72 @@ public class Main {
         int[] array = new int[5];
         System.out.println("Array length: " + array.length);
     }
+=======
+Билет №5 — All Operators
+
+1. Файл Main.java
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Инкремент и декремент
+        int a = 5;
+        a++;
+        System.out.println("After increment: " + a);
+
+        a--;
+        System.out.println("After decrement: " + a);
+
+        // Арифметические операции
+        int x = 10;
+        int y = 3;
+
+        System.out.println("Addition: " + (x + y));
+        System.out.println("Subtraction: " + (x - y));
+        System.out.println("Multiplication: " + (x * y));
+        System.out.println("Division: " + (x / y));
+        System.out.println("Remainder: " + (x % y));
+
+        // Операции отношения
+        System.out.println("x > y: " + (x > y));
+        System.out.println("x == y: " + (x == y));
+        System.out.println("x != y: " + (x != y));
+
+        // Логические операции
+        boolean p = true;
+        boolean q = false;
+
+        System.out.println("p && q: " + (p && q));
+        System.out.println("p || q: " + (p || q));
+        System.out.println("!p: " + (!p));
+
+        // Поразрядные операции
+        int n1 = 5; // 0101
+        int n2 = 3; // 0011
+
+        System.out.println("n1 & n2: " + (n1 & n2));
+        System.out.println("n1 | n2: " + (n1 | n2));
+        System.out.println("n1 ^ n2: " + (n1 ^ n2));
+
+        // Операция присваивания
+        int z = 100;
+        System.out.println("z = " + z);
+
+        // Составное присваивание
+        z += 20;
+        System.out.println("z += 20: " + z);
+
+        z *= 2;
+        System.out.println("z *= 2: " + z);
+
+        // Указание типа (приведение типов)
+        double d = 9.8;
+        int num = (int) d;
+        System.out.println("Casting: " + num);
+
+        // Операция new
+        int[] array = new int[5];
+        System.out.println("Array length: " + array.length);
+    }
+>>>>>>> 9c3327032a9d4787edc5ff1324eee2c64c490ac3
 }
