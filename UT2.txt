@@ -1,0 +1,81 @@
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
+using bilet1.Models;
+
+namespace TestProject1
+{
+    [TestClass]
+    public sealed class Test1
+    {
+        [TestMethod]
+        public void Discount500()
+        {
+            Product p = new Product();
+            p.Price = 500;
+            decimal result = p.CalculateDiscount();
+            Assert.AreEqual(0, result);
+
+        }
+
+        [TestMethod]
+        public void Discount1000()
+        {
+            Product p = new Product();
+            p.Price = 1000;
+            decimal result = p.CalculateDiscount();
+            Assert.AreEqual(0, result);
+
+        }
+
+        [TestMethod]
+        public void Discount1500()
+        {
+            Product p = new Product();
+            p.Price = 1500;
+            decimal result = p.CalculateDiscount();
+            Assert.AreEqual(150, result);
+
+
+        }
+
+    }
+}
+
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace bilet1.Models
+{
+    public class Product
+    {
+       
+
+        [Key]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Название услуги")]
+        [StringLength(20000, ErrorMessage = "Название не должно превышать 20000 символов")]
+        [Display(Name = "Название услуги")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Цена")]
+        
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
+
+        [Required(ErrorMessage = "Описание комнаты")]
+        [StringLength(29999, ErrorMessage = "Описание не должно превышать 29999 символов")]
+        [Display(Name = "Комната")]
+        public string Description { get; set; }
+
+        public decimal CalculateDiscount()
+        {
+            if (Price > 1000)
+                return Price * 0.1m;
+            return 0;
+        }
+    }
+}
