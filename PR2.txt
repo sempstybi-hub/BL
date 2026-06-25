@@ -1,0 +1,24 @@
+public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Product>(entity =>
+
+            entity.Property(p => p.Price)
+                  .HasPrecision(10,2)
+            );
+        }
+    }
+
+    "ConnectionStrings": {
+        "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=НАЗВАНИЕ_ПРОЕКТА_В_VISUAL_STUDIO;Trusted_Connection=true;MultipleActiveResultSets=true"
+    },
