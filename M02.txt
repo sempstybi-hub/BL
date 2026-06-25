@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Билет №2 — Kramer
 
 1. Файл Main.java
@@ -41,48 +40,4 @@ public class Main {
 
         sc.close();
     }
-=======
-Билет №2 — Kramer
-
-1. Файл Main.java
-
-import java.util.Scanner;
-
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter coefficients of the first equation:");
-        System.out.print("a1 = ");
-        double a1 = sc.nextDouble();
-        System.out.print("b1 = ");
-        double b1 = sc.nextDouble();
-        System.out.print("c1 = ");
-        double c1 = sc.nextDouble();
-
-        System.out.println("Enter coefficients of the second equation:");
-        System.out.print("a2 = ");
-        double a2 = sc.nextDouble();
-        System.out.print("b2 = ");
-        double b2 = sc.nextDouble();
-        System.out.print("c2 = ");
-        double c2 = sc.nextDouble();
-
-        double D = a1 * b2 - a2 * b1;
-        double Dx = c1 * b2 - c2 * b1;
-        double Dy = a1 * c2 - a2 * c1;
-
-        if (D == 0) {
-            System.out.println("Система не имеет единственного решения.");
-        } else {
-            double x = Dx / D;
-            double y = Dy / D;
-
-            System.out.println("x = " + x);
-            System.out.println("y = " + y);
-        }
-
-        sc.close();
-    }
->>>>>>> 9c3327032a9d4787edc5ff1324eee2c64c490ac3
 }

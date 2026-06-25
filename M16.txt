@@ -1,0 +1,102 @@
+Билет №16 — Шифратор тетрад
+
+1. Файл DLG.form
+
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="DLG">
+  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="48" y="54" width="436" height="297"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="36b60" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="10" bottom="10" right="10"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="51bb" class="javax.swing.JButton" binding="JBGoida">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Гойда"/>
+              <verticalAlignment value="0"/>
+            </properties>
+          </component>
+          <component id="69518" class="javax.swing.JTextField" binding="Edit">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
+
+
+2. Файл DLG.java
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.File;
+import java.io.RandomAccessFile;
+
+public class DLG extends JDialog {
+    private JPanel contentPane;
+    private JButton JBGoida;
+    private JTextField Edit;
+
+    RandomAccessFile raf;
+    String FileName;
+    byte u[];
+    int i,n;
+
+    public DLG() {
+        setContentPane(contentPane);
+        setModal(true);
+
+        JBGoida.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FileName = Edit.getText();
+                try {
+                    raf = new RandomAccessFile(FileName,"rw");
+                    n = (int)raf.length();
+                    u = new byte[n];
+                    raf.read(u,0,n);
+                    raf.seek(0);
+                    for (i=0;i<=n-1;i++)
+                        u[i] = (byte) (((u[i]>>4)&0x0f)|(u[i]<<4));
+                    raf.write(u,0,n);
+                    raf.close();
+                }
+                catch (Exception exc) {}
+            }
+        });
+    }
+}
+
+
+3. Файл Main.java
+
+public class Main {
+    public static void main(String[] args) {
+        DLG dlg = new DLG();
+
+        dlg.setBounds(800,300,300,300);
+        dlg.setResizable(false);
+        dlg.setTitle("Шыфрулятыр Сталина с Некрасовым NEW EDITION");
+        dlg.setVisible(true);
+        System.exit(0);
+    }
+}
