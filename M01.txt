@@ -1,0 +1,461 @@
+Билет №1 — Калькулятор
+
+1. Файл DLG.form
+
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="DLG">
+  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="11" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="48" y="54" width="510" height="364"/>
+    </constraints>
+    <properties>
+      <font name="Moscow Sans Regular"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="6890c" class="javax.swing.JTextField" binding="TFResult">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+        </properties>
+      </component>
+      <component id="1601f" class="javax.swing.JButton" binding="JBAdd">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="+"/>
+        </properties>
+      </component>
+      <component id="10a79" class="javax.swing.JButton" binding="JBSub">
+        <constraints>
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="-"/>
+        </properties>
+      </component>
+      <component id="ccbc6" class="javax.swing.JButton" binding="JBMul">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="x"/>
+        </properties>
+      </component>
+      <component id="977b9" class="javax.swing.JButton" binding="JBDiv">
+        <constraints>
+          <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="/"/>
+        </properties>
+      </component>
+      <component id="66a78" class="javax.swing.JTextField" binding="TFFirst">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="2" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+        </properties>
+      </component>
+      <component id="5cec" class="javax.swing.JTextField" binding="TFSecond">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+        </properties>
+      </component>
+      <component id="9d432" class="javax.swing.JMenuBar" binding="MenuBar">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+        </properties>
+      </component>
+      <component id="aded2" class="javax.swing.JMenu" binding="MHelp">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Help"/>
+        </properties>
+      </component>
+      <component id="fdb3d" class="javax.swing.JMenuItem" binding="About">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <selected value="false"/>
+          <text value="About"/>
+        </properties>
+      </component>
+      <component id="629ff" class="javax.swing.JMenuItem" binding="Tools">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <selected value="false"/>
+          <text value="Tools"/>
+        </properties>
+      </component>
+      <component id="6b35" class="javax.swing.JButton" binding="JBSin">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Sin"/>
+        </properties>
+      </component>
+      <component id="e6e3" class="javax.swing.JButton" binding="JBCos">
+        <constraints>
+          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Cos"/>
+        </properties>
+      </component>
+      <component id="d889b" class="javax.swing.JButton" binding="JBTan">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Tan"/>
+        </properties>
+      </component>
+      <component id="ef172" class="javax.swing.JButton" binding="JBPi">
+        <constraints>
+          <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="π"/>
+        </properties>
+      </component>
+      <component id="b3a9e" class="javax.swing.JButton" binding="JBExp">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Exp"/>
+        </properties>
+      </component>
+      <component id="76d05" class="javax.swing.JButton" binding="JBLog">
+        <constraints>
+          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Log"/>
+        </properties>
+      </component>
+      <component id="f7498" class="javax.swing.JButton" binding="JBLogAB">
+        <constraints>
+          <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="LogAB"/>
+        </properties>
+      </component>
+      <component id="11057" class="javax.swing.JButton" binding="JBE">
+        <constraints>
+          <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="E"/>
+        </properties>
+      </component>
+      <component id="5ec2c" class="javax.swing.JButton" binding="JBPow">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Pow"/>
+        </properties>
+      </component>
+      <component id="79d0a" class="javax.swing.JButton" binding="JBSqrt">
+        <constraints>
+          <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Sqrt"/>
+        </properties>
+      </component>
+      <component id="a9e9b" class="javax.swing.JButton" binding="JBHex">
+        <constraints>
+          <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Hex"/>
+        </properties>
+      </component>
+      <component id="214e4" class="javax.swing.JButton" binding="JBClear">
+        <constraints>
+          <grid row="10" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Moscow Sans Regular"/>
+          <text value="Clear"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
+
+2. Файл DLG.java
+
+import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Locale;
+
+public class DLG extends JDialog {
+    private JPanel contentPane;
+    private JTextField TFFirst;
+    private JTextField TFSecond;
+    private JTextField TFResult;
+    private JButton JBAdd;
+    private JButton JBSub;
+    private JButton JBMul;
+    private JButton JBDiv;
+    public JMenuBar MenuBar;
+    private JMenu MHelp;
+    private JMenuItem About;
+    private JMenuItem Tools;
+    private JButton JBSin;
+    private JButton JBCos;
+    private JButton JBTan;
+    private JButton JBPi;
+    private JButton JBExp;
+    private JButton JBLog;
+    private JButton JBLogAB;
+    private JButton JBE;
+    private JButton JBPow;
+    private JButton JBSqrt;
+    private JButton JBHex;
+    private JButton JBClear;
+
+
+    public DLG() {
+        setContentPane(contentPane);
+        setModal(true);
+
+        MHelp.add(About);
+        MHelp.add(Tools);
+
+        MenuBar.add(MHelp);
+
+        JBAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double num2 = Double.parseDouble(TFSecond.getText());
+                double result = num1 + num2;
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+        JBSub.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double num2 = Double.parseDouble(TFSecond.getText());
+                double result = num1 - num2;
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+        JBMul.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double num2 = Double.parseDouble(TFSecond.getText());
+                double result = num1 * num2;
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+        JBDiv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double num2 = Double.parseDouble(TFSecond.getText());
+                double result = num1 / num2;
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+        About.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Программа Сталина и Некрасова");
+            }
+        });
+
+        Tools.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Гойда на C#");
+            }
+        });
+
+        JBSin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double result = Math.sin(num1);
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBCos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double result = Math.cos(num1);
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBTan.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double result = Math.tan(num1);
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBPi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TFResult.setText(String.valueOf(Math.PI));
+            }
+        });
+
+        JBExp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double result = Math.exp(num1);
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double result = Math.log(num1);
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBLogAB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double a = Double.parseDouble(TFFirst.getText());
+                double b = Double.parseDouble(TFSecond.getText());
+
+                double result = Math.log(a) / Math.log(b);
+
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBPow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double num2 = Double.parseDouble(TFSecond.getText());
+
+                double result = Math.pow(num1, num2);
+
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBSqrt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double num1 = Double.parseDouble(TFFirst.getText());
+                double num2 = Double.parseDouble(TFSecond.getText());
+
+                double result = Math.sqrt(num1);
+
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBE.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                double result = Math.E;
+
+                TFResult.setText(String.valueOf(result));
+            }
+        });
+
+        JBHex.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int num = (int) Double.parseDouble(TFFirst.getText());
+
+                String result = "0x" + Integer.toHexString(num).toUpperCase();
+
+                TFResult.setText(result);
+            }
+        });
+
+        JBClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TFFirst.setText("");
+                TFSecond.setText("");
+                TFResult.setText("");
+            }
+        });
+    }
+}
+
+3. Файл Main.java
+
+public class Main {
+    public static void main(String[] args) {
+        DLG dlg = new DLG();
+
+        dlg.setBounds(800,300,320,300);
+        dlg.setResizable(false);
+        dlg.setTitle("Какулятор. Сталин и Некрасов эдишн");
+        dlg.setJMenuBar(dlg.MenuBar);
+        dlg.setVisible(true);
+        System.exit(0);
+    }
+}
