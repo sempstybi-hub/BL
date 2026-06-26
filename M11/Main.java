@@ -1,0 +1,22 @@
+class Student {
+    String name;
+
+    // Общее количество студентов
+    static int count = 0;
+
+    Student(String name) {
+        this.name = name;
+        count++;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Student s1 = new Student("Alex");
+        Student s2 = new Student("Kate");
+        Student s3 = new Student("John");
+
+        System.out.println("Students: " + Student.count);
+    }
+}

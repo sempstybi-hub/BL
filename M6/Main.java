@@ -1,0 +1,41 @@
+public class Main {
+    public static void main(String[] args) {
+
+        // Цикл for
+        System.out.println("For loop:");
+        for (int i = 1; i <= 5; i++) {
+            System.out.print(i + " ");
+        }
+
+        System.out.println();
+
+        // Цикл while
+        System.out.println("\nWhile loop:");
+        int j = 1;
+        while (j <= 5) {
+            System.out.print(j + " ");
+            j++;
+        }
+
+        System.out.println();
+
+        // Цикл do-while
+        System.out.println("\nDo-while loop:");
+        int k = 1;
+        do {
+            System.out.print(k + " ");
+            k++;
+        } while (k <= 5);
+
+        System.out.println();
+
+        // Оператор continue
+        System.out.println("\nContinue example:");
+        for (int n = 1; n <= 5; n++) {
+            if (n == 3) {
+                continue; // пропускаем число 3
+            }
+            System.out.print(n + " ");
+        }
+    }
+}
